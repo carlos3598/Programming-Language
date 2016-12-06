@@ -1,0 +1,3943 @@
+Created by PLY version 3.6 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> firstQuadruple clases scopeGlobal vars funciones PROGRAMA scopePrograma bloque
+Rule 2     firstQuadruple -> <empty>
+Rule 3     clases -> clase clases
+Rule 4     clases -> <empty>
+Rule 5     scopeGlobal -> <empty>
+Rule 6     scopePrograma -> <empty>
+Rule 7     vars -> var vars
+Rule 8     vars -> <empty>
+Rule 9     funciones -> funcion funciones
+Rule 10    funciones -> <empty>
+Rule 11    var -> tipo varNombre varsVector var2 ;
+Rule 12    varsVector -> [ CTE_ENTERO ]
+Rule 13    varsVector -> <empty>
+Rule 14    var2 -> , varNombre varsVector var2
+Rule 15    var2 -> <empty>
+Rule 16    varNombre -> ID
+Rule 17    funcion -> FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque
+Rule 18    nombreFuncion -> ID
+Rule 19    agregaFirma -> )
+Rule 20    tipo -> ENTERO
+Rule 21    tipo -> FLOTANTE
+Rule 22    tipo -> TEXTO
+Rule 23    tipo -> BOLEANO
+Rule 24    tipo -> checkClassExistance
+Rule 25    tipo -> VACIO
+Rule 26    checkClassExistance -> ID
+Rule 27    bloque -> { bloque1 }
+Rule 28    bloque1 -> estatuto bloque1
+Rule 29    bloque1 -> <empty>
+Rule 30    estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc
+Rule 31    estatuto -> condicion
+Rule 32    estatuto -> escritura
+Rule 33    estatuto -> ciclowhile
+Rule 34    estatuto -> lectura
+Rule 35    estatuto -> var
+Rule 36    estatuto -> metodo5
+Rule 37    catchIdAsignacionOrLlamadaFunc -> ID nextIde
+Rule 38    nextIde -> . ID
+Rule 39    nextIde -> <empty>
+Rule 40    asignacionOrLlamadaFunc -> llamadaFuncion
+Rule 41    asignacionOrLlamadaFunc -> asignacion
+Rule 42    llamadaFuncion -> verificarProc parametrosLlamada ) ;
+Rule 43    verificarProc -> (
+Rule 44    parametrosLlamada -> expresion parametrosLlamada2
+Rule 45    parametrosLlamada -> <empty>
+Rule 46    parametrosLlamada2 -> , expresion parametrosLlamada2
+Rule 47    parametrosLlamada2 -> <empty>
+Rule 48    asignacion -> revisaQueExistaID asignacion1 = expresion ;
+Rule 49    revisaQueExistaID -> <empty>
+Rule 50    asignacion1 -> vectorAsignacion
+Rule 51    asignacion1 -> <empty>
+Rule 52    vectorAsignacion -> [ exp ]
+Rule 53    escritura -> escrituraType ( expresion ) ;
+Rule 54    escrituraType -> IMPRIMIR
+Rule 55    escrituraType -> IMPRIMIRSALTO
+Rule 56    condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1
+Rule 57    leftParentesisCondicion -> )
+Rule 58    condicion1 -> sinoCondicion bloque
+Rule 59    condicion1 -> <empty>
+Rule 60    sinoCondicion -> SINO
+Rule 61    lectura -> LEER ( revisaQueExistaID ) ;
+Rule 62    ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque
+Rule 63    parentesisIzqWhile -> (
+Rule 64    parentesisDerWhile -> )
+Rule 65    superexpresion -> expresion checaSuperExpresion superexpresion1
+Rule 66    checaSuperExpresion -> <empty>
+Rule 67    superexpresion1 -> operationSuperExpresion superexpresion
+Rule 68    superexpresion1 -> <empty>
+Rule 69    operationSuperExpresion -> Y
+Rule 70    operationSuperExpresion -> O
+Rule 71    expresion -> exp expresion1
+Rule 72    expresion1 -> > exp
+Rule 73    expresion1 -> GE exp
+Rule 74    expresion1 -> < exp
+Rule 75    expresion1 -> LE exp
+Rule 76    expresion1 -> NEQ exp
+Rule 77    expresion1 -> EQ exp
+Rule 78    expresion1 -> <empty>
+Rule 79    exp -> termino checaExp exp1
+Rule 80    checaExp -> <empty>
+Rule 81    exp1 -> operationExp exp
+Rule 82    exp1 -> <empty>
+Rule 83    operationExp -> +
+Rule 84    operationExp -> -
+Rule 85    termino -> factor checaTermino termino1
+Rule 86    termino1 -> operationTermino termino
+Rule 87    termino1 -> <empty>
+Rule 88    checaTermino -> <empty>
+Rule 89    operationTermino -> *
+Rule 90    operationTermino -> /
+Rule 91    operationTermino -> %
+Rule 92    factor -> parentesisIzq superexpresion parentesisDer
+Rule 93    factor -> operationFactor varcte
+Rule 94    factor -> varcte
+Rule 95    parentesisIzq -> (
+Rule 96    parentesisDer -> )
+Rule 97    operationFactor -> +
+Rule 98    operationFactor -> -
+Rule 99    varcte -> varcteID
+Rule 100   varcte -> constantes
+Rule 101   varcte -> NULO
+Rule 102   constantes -> CTE_ENTERO
+Rule 103   constantes -> CTE_FLOTANTE
+Rule 104   constantes -> CTE_TEXTO
+Rule 105   constantes -> VERDADERO
+Rule 106   constantes -> FALSO
+Rule 107   varcteID -> guardarVarcteId varct
+Rule 108   guardarVarcteId -> ID
+Rule 109   varct -> varcte1
+Rule 110   varct -> varcte2
+Rule 111   varct -> vectorExp
+Rule 112   varct -> <empty>
+Rule 113   varcte1 -> . ID
+Rule 114   vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer
+Rule 115   saveTempNombreVector -> <empty>
+Rule 116   corcheteIzq -> [
+Rule 117   corcheteDer -> ]
+Rule 118   varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer
+Rule 119   saveTempNombreFunc -> <empty>
+Rule 120   varcte3 -> exp varcte4
+Rule 121   varcte3 -> <empty>
+Rule 122   varcte4 -> , exp varcte4
+Rule 123   varcte4 -> <empty>
+Rule 124   clase -> CLASE nombreClase clase1 { public } ;
+Rule 125   nombreClase -> ID
+Rule 126   clase1 -> : ID
+Rule 127   clase1 -> <empty>
+Rule 128   public -> PUBLICO : vars funciones
+Rule 129   public -> <empty>
+Rule 130   metodo2 -> tipo nombreParametro metodo21
+Rule 131   metodo2 -> <empty>
+Rule 132   metodo21 -> , tipo nombreParametro metodo21
+Rule 133   metodo21 -> <empty>
+Rule 134   nombreParametro -> ID
+Rule 135   metodo5 -> REGRESA expresion ;
+
+Terminals, with rules where they appear
+
+%                    : 91
+(                    : 17 43 53 56 61 63 95
+)                    : 19 42 53 57 61 64 96
+*                    : 89
++                    : 83 97
+,                    : 14 46 122 132
+-                    : 84 98
+.                    : 38 113
+/                    : 90
+:                    : 126 128
+;                    : 11 42 48 53 61 124 135
+<                    : 74
+=                    : 48
+>                    : 72
+BOLEANO              : 23
+CLASE                : 124
+CTE_ENTERO           : 12 102
+CTE_FLOTANTE         : 103
+CTE_TEXTO            : 104
+ENTERO               : 20
+EQ                   : 77
+FALSO                : 106
+FLOTANTE             : 21
+FUNCION              : 17
+GE                   : 73
+ID                   : 16 18 26 37 38 108 113 125 126 134
+IMPRIMIR             : 54
+IMPRIMIRSALTO        : 55
+LE                   : 75
+LEER                 : 61
+MIENTRAS             : 62
+NEQ                  : 76
+NULO                 : 101
+O                    : 70
+PROGRAMA             : 1
+PUBLICO              : 128
+REGRESA              : 135
+SI                   : 56
+SINO                 : 60
+TEXTO                : 22
+VACIO                : 25
+VERDADERO            : 105
+Y                    : 69
+[                    : 12 52 116
+]                    : 12 52 117
+error                : 
+{                    : 27 124
+}                    : 27 124
+
+Nonterminals, with rules where they appear
+
+agregaFirma          : 17
+asignacion           : 41
+asignacion1          : 48
+asignacionOrLlamadaFunc : 30
+bloque               : 1 17 56 58 62
+bloque1              : 27 28
+catchIdAsignacionOrLlamadaFunc : 30
+checaExp             : 79
+checaSuperExpresion  : 65
+checaTermino         : 85
+checkClassExistance  : 24
+ciclowhile           : 33
+clase                : 3
+clase1               : 124
+clases               : 1 3
+condicion            : 31
+condicion1           : 56
+constantes           : 100
+corcheteDer          : 114
+corcheteIzq          : 114
+escritura            : 32
+escrituraType        : 53
+estatuto             : 28
+exp                  : 52 71 72 73 74 75 76 77 81 114 120 122
+exp1                 : 79
+expresion            : 44 46 48 53 65 135
+expresion1           : 71
+factor               : 85
+firstQuadruple       : 1
+funcion              : 9
+funciones            : 1 9 128
+guardarVarcteId      : 107
+lectura              : 34
+leftParentesisCondicion : 56
+llamadaFuncion       : 40
+metodo2              : 17
+metodo21             : 130 132
+metodo5              : 36
+nextIde              : 37
+nombreClase          : 124
+nombreFuncion        : 17
+nombreParametro      : 130 132
+operationExp         : 81
+operationFactor      : 93
+operationSuperExpresion : 67
+operationTermino     : 86
+parametrosLlamada    : 42
+parametrosLlamada2   : 44 46
+parentesisDer        : 92 118
+parentesisDerWhile   : 62
+parentesisIzq        : 92 118
+parentesisIzqWhile   : 62
+programa             : 0
+public               : 124
+revisaQueExistaID    : 48 61
+saveTempNombreFunc   : 118
+saveTempNombreVector : 114
+scopeGlobal          : 1
+scopePrograma        : 1
+sinoCondicion        : 58
+superexpresion       : 56 62 67 92
+superexpresion1      : 65
+termino              : 79 86
+termino1             : 85
+tipo                 : 11 17 130 132
+var                  : 7 35
+var2                 : 11 14
+varNombre            : 11 14
+varct                : 107
+varcte               : 93 94
+varcte1              : 109
+varcte2              : 110
+varcte3              : 118
+varcte4              : 120 122
+varcteID             : 99
+vars                 : 1 7 128
+varsVector           : 11 14
+vectorAsignacion     : 50
+vectorExp            : 111
+verificarProc        : 42
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . firstQuadruple clases scopeGlobal vars funciones PROGRAMA scopePrograma bloque
+    (2) firstQuadruple -> .
+
+    CLASE           reduce using rule 2 (firstQuadruple -> .)
+    ENTERO          reduce using rule 2 (firstQuadruple -> .)
+    FLOTANTE        reduce using rule 2 (firstQuadruple -> .)
+    TEXTO           reduce using rule 2 (firstQuadruple -> .)
+    BOLEANO         reduce using rule 2 (firstQuadruple -> .)
+    VACIO           reduce using rule 2 (firstQuadruple -> .)
+    ID              reduce using rule 2 (firstQuadruple -> .)
+    FUNCION         reduce using rule 2 (firstQuadruple -> .)
+    PROGRAMA        reduce using rule 2 (firstQuadruple -> .)
+
+    firstQuadruple                 shift and go to state 1
+    programa                       shift and go to state 2
+
+state 1
+
+    (1) programa -> firstQuadruple . clases scopeGlobal vars funciones PROGRAMA scopePrograma bloque
+    (3) clases -> . clase clases
+    (4) clases -> .
+    (124) clase -> . CLASE nombreClase clase1 { public } ;
+
+    ENTERO          reduce using rule 4 (clases -> .)
+    FLOTANTE        reduce using rule 4 (clases -> .)
+    TEXTO           reduce using rule 4 (clases -> .)
+    BOLEANO         reduce using rule 4 (clases -> .)
+    VACIO           reduce using rule 4 (clases -> .)
+    ID              reduce using rule 4 (clases -> .)
+    FUNCION         reduce using rule 4 (clases -> .)
+    PROGRAMA        reduce using rule 4 (clases -> .)
+    CLASE           shift and go to state 5
+
+    clases                         shift and go to state 3
+    clase                          shift and go to state 4
+
+state 2
+
+    (0) S' -> programa .
+
+
+
+state 3
+
+    (1) programa -> firstQuadruple clases . scopeGlobal vars funciones PROGRAMA scopePrograma bloque
+    (5) scopeGlobal -> .
+
+    ENTERO          reduce using rule 5 (scopeGlobal -> .)
+    FLOTANTE        reduce using rule 5 (scopeGlobal -> .)
+    TEXTO           reduce using rule 5 (scopeGlobal -> .)
+    BOLEANO         reduce using rule 5 (scopeGlobal -> .)
+    VACIO           reduce using rule 5 (scopeGlobal -> .)
+    ID              reduce using rule 5 (scopeGlobal -> .)
+    FUNCION         reduce using rule 5 (scopeGlobal -> .)
+    PROGRAMA        reduce using rule 5 (scopeGlobal -> .)
+
+    scopeGlobal                    shift and go to state 6
+
+state 4
+
+    (3) clases -> clase . clases
+    (3) clases -> . clase clases
+    (4) clases -> .
+    (124) clase -> . CLASE nombreClase clase1 { public } ;
+
+    ENTERO          reduce using rule 4 (clases -> .)
+    FLOTANTE        reduce using rule 4 (clases -> .)
+    TEXTO           reduce using rule 4 (clases -> .)
+    BOLEANO         reduce using rule 4 (clases -> .)
+    VACIO           reduce using rule 4 (clases -> .)
+    ID              reduce using rule 4 (clases -> .)
+    FUNCION         reduce using rule 4 (clases -> .)
+    PROGRAMA        reduce using rule 4 (clases -> .)
+    CLASE           shift and go to state 5
+
+    clase                          shift and go to state 4
+    clases                         shift and go to state 7
+
+state 5
+
+    (124) clase -> CLASE . nombreClase clase1 { public } ;
+    (125) nombreClase -> . ID
+
+    ID              shift and go to state 9
+
+    nombreClase                    shift and go to state 8
+
+state 6
+
+    (1) programa -> firstQuadruple clases scopeGlobal . vars funciones PROGRAMA scopePrograma bloque
+    (7) vars -> . var vars
+    (8) vars -> .
+    (11) var -> . tipo varNombre varsVector var2 ;
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    FUNCION         reduce using rule 8 (vars -> .)
+    PROGRAMA        reduce using rule 8 (vars -> .)
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+    ID              shift and go to state 13
+
+    vars                           shift and go to state 10
+    tipo                           shift and go to state 11
+    checkClassExistance            shift and go to state 15
+    var                            shift and go to state 17
+
+state 7
+
+    (3) clases -> clase clases .
+
+    ENTERO          reduce using rule 3 (clases -> clase clases .)
+    FLOTANTE        reduce using rule 3 (clases -> clase clases .)
+    TEXTO           reduce using rule 3 (clases -> clase clases .)
+    BOLEANO         reduce using rule 3 (clases -> clase clases .)
+    VACIO           reduce using rule 3 (clases -> clase clases .)
+    ID              reduce using rule 3 (clases -> clase clases .)
+    FUNCION         reduce using rule 3 (clases -> clase clases .)
+    PROGRAMA        reduce using rule 3 (clases -> clase clases .)
+
+
+state 8
+
+    (124) clase -> CLASE nombreClase . clase1 { public } ;
+    (126) clase1 -> . : ID
+    (127) clase1 -> .
+
+    :               shift and go to state 20
+    {               reduce using rule 127 (clase1 -> .)
+
+    clase1                         shift and go to state 21
+
+state 9
+
+    (125) nombreClase -> ID .
+
+    :               reduce using rule 125 (nombreClase -> ID .)
+    {               reduce using rule 125 (nombreClase -> ID .)
+
+
+state 10
+
+    (1) programa -> firstQuadruple clases scopeGlobal vars . funciones PROGRAMA scopePrograma bloque
+    (9) funciones -> . funcion funciones
+    (10) funciones -> .
+    (17) funcion -> . FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque
+
+    PROGRAMA        reduce using rule 10 (funciones -> .)
+    FUNCION         shift and go to state 23
+
+    funciones                      shift and go to state 22
+    funcion                        shift and go to state 24
+
+state 11
+
+    (11) var -> tipo . varNombre varsVector var2 ;
+    (16) varNombre -> . ID
+
+    ID              shift and go to state 26
+
+    varNombre                      shift and go to state 25
+
+state 12
+
+    (20) tipo -> ENTERO .
+
+    ID              reduce using rule 20 (tipo -> ENTERO .)
+
+
+state 13
+
+    (26) checkClassExistance -> ID .
+
+    ID              reduce using rule 26 (checkClassExistance -> ID .)
+
+
+state 14
+
+    (25) tipo -> VACIO .
+
+    ID              reduce using rule 25 (tipo -> VACIO .)
+
+
+state 15
+
+    (24) tipo -> checkClassExistance .
+
+    ID              reduce using rule 24 (tipo -> checkClassExistance .)
+
+
+state 16
+
+    (23) tipo -> BOLEANO .
+
+    ID              reduce using rule 23 (tipo -> BOLEANO .)
+
+
+state 17
+
+    (7) vars -> var . vars
+    (7) vars -> . var vars
+    (8) vars -> .
+    (11) var -> . tipo varNombre varsVector var2 ;
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    FUNCION         reduce using rule 8 (vars -> .)
+    PROGRAMA        reduce using rule 8 (vars -> .)
+    }               reduce using rule 8 (vars -> .)
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+    ID              shift and go to state 13
+
+    vars                           shift and go to state 27
+    tipo                           shift and go to state 11
+    checkClassExistance            shift and go to state 15
+    var                            shift and go to state 17
+
+state 18
+
+    (21) tipo -> FLOTANTE .
+
+    ID              reduce using rule 21 (tipo -> FLOTANTE .)
+
+
+state 19
+
+    (22) tipo -> TEXTO .
+
+    ID              reduce using rule 22 (tipo -> TEXTO .)
+
+
+state 20
+
+    (126) clase1 -> : . ID
+
+    ID              shift and go to state 28
+
+
+state 21
+
+    (124) clase -> CLASE nombreClase clase1 . { public } ;
+
+    {               shift and go to state 29
+
+
+state 22
+
+    (1) programa -> firstQuadruple clases scopeGlobal vars funciones . PROGRAMA scopePrograma bloque
+
+    PROGRAMA        shift and go to state 30
+
+
+state 23
+
+    (17) funcion -> FUNCION . tipo nombreFuncion ( metodo2 agregaFirma bloque
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+    ID              shift and go to state 13
+
+    tipo                           shift and go to state 31
+    checkClassExistance            shift and go to state 15
+
+state 24
+
+    (9) funciones -> funcion . funciones
+    (9) funciones -> . funcion funciones
+    (10) funciones -> .
+    (17) funcion -> . FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque
+
+    PROGRAMA        reduce using rule 10 (funciones -> .)
+    }               reduce using rule 10 (funciones -> .)
+    FUNCION         shift and go to state 23
+
+    funcion                        shift and go to state 24
+    funciones                      shift and go to state 32
+
+state 25
+
+    (11) var -> tipo varNombre . varsVector var2 ;
+    (12) varsVector -> . [ CTE_ENTERO ]
+    (13) varsVector -> .
+
+    [               shift and go to state 33
+    ,               reduce using rule 13 (varsVector -> .)
+    ;               reduce using rule 13 (varsVector -> .)
+
+    varsVector                     shift and go to state 34
+
+state 26
+
+    (16) varNombre -> ID .
+
+    [               reduce using rule 16 (varNombre -> ID .)
+    ,               reduce using rule 16 (varNombre -> ID .)
+    ;               reduce using rule 16 (varNombre -> ID .)
+
+
+state 27
+
+    (7) vars -> var vars .
+
+    FUNCION         reduce using rule 7 (vars -> var vars .)
+    }               reduce using rule 7 (vars -> var vars .)
+    PROGRAMA        reduce using rule 7 (vars -> var vars .)
+
+
+state 28
+
+    (126) clase1 -> : ID .
+
+    {               reduce using rule 126 (clase1 -> : ID .)
+
+
+state 29
+
+    (124) clase -> CLASE nombreClase clase1 { . public } ;
+    (128) public -> . PUBLICO : vars funciones
+    (129) public -> .
+
+    PUBLICO         shift and go to state 36
+    }               reduce using rule 129 (public -> .)
+
+    public                         shift and go to state 35
+
+state 30
+
+    (1) programa -> firstQuadruple clases scopeGlobal vars funciones PROGRAMA . scopePrograma bloque
+    (6) scopePrograma -> .
+
+    {               reduce using rule 6 (scopePrograma -> .)
+
+    scopePrograma                  shift and go to state 37
+
+state 31
+
+    (17) funcion -> FUNCION tipo . nombreFuncion ( metodo2 agregaFirma bloque
+    (18) nombreFuncion -> . ID
+
+    ID              shift and go to state 39
+
+    nombreFuncion                  shift and go to state 38
+
+state 32
+
+    (9) funciones -> funcion funciones .
+
+    }               reduce using rule 9 (funciones -> funcion funciones .)
+    PROGRAMA        reduce using rule 9 (funciones -> funcion funciones .)
+
+
+state 33
+
+    (12) varsVector -> [ . CTE_ENTERO ]
+
+    CTE_ENTERO      shift and go to state 40
+
+
+state 34
+
+    (11) var -> tipo varNombre varsVector . var2 ;
+    (14) var2 -> . , varNombre varsVector var2
+    (15) var2 -> .
+
+    ,               shift and go to state 41
+    ;               reduce using rule 15 (var2 -> .)
+
+    var2                           shift and go to state 42
+
+state 35
+
+    (124) clase -> CLASE nombreClase clase1 { public . } ;
+
+    }               shift and go to state 43
+
+
+state 36
+
+    (128) public -> PUBLICO . : vars funciones
+
+    :               shift and go to state 44
+
+
+state 37
+
+    (1) programa -> firstQuadruple clases scopeGlobal vars funciones PROGRAMA scopePrograma . bloque
+    (27) bloque -> . { bloque1 }
+
+    {               shift and go to state 45
+
+    bloque                         shift and go to state 46
+
+state 38
+
+    (17) funcion -> FUNCION tipo nombreFuncion . ( metodo2 agregaFirma bloque
+
+    (               shift and go to state 47
+
+
+state 39
+
+    (18) nombreFuncion -> ID .
+
+    (               reduce using rule 18 (nombreFuncion -> ID .)
+
+
+state 40
+
+    (12) varsVector -> [ CTE_ENTERO . ]
+
+    ]               shift and go to state 48
+
+
+state 41
+
+    (14) var2 -> , . varNombre varsVector var2
+    (16) varNombre -> . ID
+
+    ID              shift and go to state 26
+
+    varNombre                      shift and go to state 49
+
+state 42
+
+    (11) var -> tipo varNombre varsVector var2 . ;
+
+    ;               shift and go to state 50
+
+
+state 43
+
+    (124) clase -> CLASE nombreClase clase1 { public } . ;
+
+    ;               shift and go to state 51
+
+
+state 44
+
+    (128) public -> PUBLICO : . vars funciones
+    (7) vars -> . var vars
+    (8) vars -> .
+    (11) var -> . tipo varNombre varsVector var2 ;
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    FUNCION         reduce using rule 8 (vars -> .)
+    }               reduce using rule 8 (vars -> .)
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+    ID              shift and go to state 13
+
+    vars                           shift and go to state 52
+    tipo                           shift and go to state 11
+    checkClassExistance            shift and go to state 15
+    var                            shift and go to state 17
+
+state 45
+
+    (27) bloque -> { . bloque1 }
+    (28) bloque1 -> . estatuto bloque1
+    (29) bloque1 -> .
+    (30) estatuto -> . catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc
+    (31) estatuto -> . condicion
+    (32) estatuto -> . escritura
+    (33) estatuto -> . ciclowhile
+    (34) estatuto -> . lectura
+    (35) estatuto -> . var
+    (36) estatuto -> . metodo5
+    (37) catchIdAsignacionOrLlamadaFunc -> . ID nextIde
+    (56) condicion -> . SI ( superexpresion leftParentesisCondicion bloque condicion1
+    (53) escritura -> . escrituraType ( expresion ) ;
+    (62) ciclowhile -> . MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque
+    (61) lectura -> . LEER ( revisaQueExistaID ) ;
+    (11) var -> . tipo varNombre varsVector var2 ;
+    (135) metodo5 -> . REGRESA expresion ;
+    (54) escrituraType -> . IMPRIMIR
+    (55) escrituraType -> . IMPRIMIRSALTO
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    }               reduce using rule 29 (bloque1 -> .)
+    ID              shift and go to state 59
+    SI              shift and go to state 57
+    MIENTRAS        shift and go to state 68
+    LEER            shift and go to state 62
+    REGRESA         shift and go to state 64
+    IMPRIMIR        shift and go to state 65
+    IMPRIMIRSALTO   shift and go to state 60
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+
+    tipo                           shift and go to state 11
+    checkClassExistance            shift and go to state 15
+    bloque1                        shift and go to state 53
+    lectura                        shift and go to state 54
+    metodo5                        shift and go to state 67
+    condicion                      shift and go to state 55
+    catchIdAsignacionOrLlamadaFunc shift and go to state 56
+    ciclowhile                     shift and go to state 58
+    escritura                      shift and go to state 61
+    escrituraType                  shift and go to state 63
+    estatuto                       shift and go to state 66
+    var                            shift and go to state 69
+
+state 46
+
+    (1) programa -> firstQuadruple clases scopeGlobal vars funciones PROGRAMA scopePrograma bloque .
+
+    $end            reduce using rule 1 (programa -> firstQuadruple clases scopeGlobal vars funciones PROGRAMA scopePrograma bloque .)
+
+
+state 47
+
+    (17) funcion -> FUNCION tipo nombreFuncion ( . metodo2 agregaFirma bloque
+    (130) metodo2 -> . tipo nombreParametro metodo21
+    (131) metodo2 -> .
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    )               reduce using rule 131 (metodo2 -> .)
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+    ID              shift and go to state 13
+
+    metodo2                        shift and go to state 70
+    tipo                           shift and go to state 71
+    checkClassExistance            shift and go to state 15
+
+state 48
+
+    (12) varsVector -> [ CTE_ENTERO ] .
+
+    ,               reduce using rule 12 (varsVector -> [ CTE_ENTERO ] .)
+    ;               reduce using rule 12 (varsVector -> [ CTE_ENTERO ] .)
+
+
+state 49
+
+    (14) var2 -> , varNombre . varsVector var2
+    (12) varsVector -> . [ CTE_ENTERO ]
+    (13) varsVector -> .
+
+    [               shift and go to state 33
+    ,               reduce using rule 13 (varsVector -> .)
+    ;               reduce using rule 13 (varsVector -> .)
+
+    varsVector                     shift and go to state 72
+
+state 50
+
+    (11) var -> tipo varNombre varsVector var2 ; .
+
+    ENTERO          reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    FLOTANTE        reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    TEXTO           reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    BOLEANO         reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    VACIO           reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    ID              reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    FUNCION         reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    }               reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    SI              reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    MIENTRAS        reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    LEER            reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    REGRESA         reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    IMPRIMIR        reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    IMPRIMIRSALTO   reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+    PROGRAMA        reduce using rule 11 (var -> tipo varNombre varsVector var2 ; .)
+
+
+state 51
+
+    (124) clase -> CLASE nombreClase clase1 { public } ; .
+
+    CLASE           reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    ENTERO          reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    FLOTANTE        reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    TEXTO           reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    BOLEANO         reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    VACIO           reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    ID              reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    FUNCION         reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+    PROGRAMA        reduce using rule 124 (clase -> CLASE nombreClase clase1 { public } ; .)
+
+
+state 52
+
+    (128) public -> PUBLICO : vars . funciones
+    (9) funciones -> . funcion funciones
+    (10) funciones -> .
+    (17) funcion -> . FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque
+
+    }               reduce using rule 10 (funciones -> .)
+    FUNCION         shift and go to state 23
+
+    funcion                        shift and go to state 24
+    funciones                      shift and go to state 73
+
+state 53
+
+    (27) bloque -> { bloque1 . }
+
+    }               shift and go to state 74
+
+
+state 54
+
+    (34) estatuto -> lectura .
+
+    ID              reduce using rule 34 (estatuto -> lectura .)
+    SI              reduce using rule 34 (estatuto -> lectura .)
+    MIENTRAS        reduce using rule 34 (estatuto -> lectura .)
+    LEER            reduce using rule 34 (estatuto -> lectura .)
+    REGRESA         reduce using rule 34 (estatuto -> lectura .)
+    IMPRIMIR        reduce using rule 34 (estatuto -> lectura .)
+    IMPRIMIRSALTO   reduce using rule 34 (estatuto -> lectura .)
+    ENTERO          reduce using rule 34 (estatuto -> lectura .)
+    FLOTANTE        reduce using rule 34 (estatuto -> lectura .)
+    TEXTO           reduce using rule 34 (estatuto -> lectura .)
+    BOLEANO         reduce using rule 34 (estatuto -> lectura .)
+    VACIO           reduce using rule 34 (estatuto -> lectura .)
+    }               reduce using rule 34 (estatuto -> lectura .)
+
+
+state 55
+
+    (31) estatuto -> condicion .
+
+    ID              reduce using rule 31 (estatuto -> condicion .)
+    SI              reduce using rule 31 (estatuto -> condicion .)
+    MIENTRAS        reduce using rule 31 (estatuto -> condicion .)
+    LEER            reduce using rule 31 (estatuto -> condicion .)
+    REGRESA         reduce using rule 31 (estatuto -> condicion .)
+    IMPRIMIR        reduce using rule 31 (estatuto -> condicion .)
+    IMPRIMIRSALTO   reduce using rule 31 (estatuto -> condicion .)
+    ENTERO          reduce using rule 31 (estatuto -> condicion .)
+    FLOTANTE        reduce using rule 31 (estatuto -> condicion .)
+    TEXTO           reduce using rule 31 (estatuto -> condicion .)
+    BOLEANO         reduce using rule 31 (estatuto -> condicion .)
+    VACIO           reduce using rule 31 (estatuto -> condicion .)
+    }               reduce using rule 31 (estatuto -> condicion .)
+
+
+state 56
+
+    (30) estatuto -> catchIdAsignacionOrLlamadaFunc . asignacionOrLlamadaFunc
+    (40) asignacionOrLlamadaFunc -> . llamadaFuncion
+    (41) asignacionOrLlamadaFunc -> . asignacion
+    (42) llamadaFuncion -> . verificarProc parametrosLlamada ) ;
+    (48) asignacion -> . revisaQueExistaID asignacion1 = expresion ;
+    (43) verificarProc -> . (
+    (49) revisaQueExistaID -> .
+
+    (               shift and go to state 76
+    [               reduce using rule 49 (revisaQueExistaID -> .)
+    =               reduce using rule 49 (revisaQueExistaID -> .)
+
+    asignacionOrLlamadaFunc        shift and go to state 77
+    llamadaFuncion                 shift and go to state 78
+    verificarProc                  shift and go to state 75
+    revisaQueExistaID              shift and go to state 79
+    asignacion                     shift and go to state 80
+
+state 57
+
+    (56) condicion -> SI . ( superexpresion leftParentesisCondicion bloque condicion1
+
+    (               shift and go to state 81
+
+
+state 58
+
+    (33) estatuto -> ciclowhile .
+
+    ID              reduce using rule 33 (estatuto -> ciclowhile .)
+    SI              reduce using rule 33 (estatuto -> ciclowhile .)
+    MIENTRAS        reduce using rule 33 (estatuto -> ciclowhile .)
+    LEER            reduce using rule 33 (estatuto -> ciclowhile .)
+    REGRESA         reduce using rule 33 (estatuto -> ciclowhile .)
+    IMPRIMIR        reduce using rule 33 (estatuto -> ciclowhile .)
+    IMPRIMIRSALTO   reduce using rule 33 (estatuto -> ciclowhile .)
+    ENTERO          reduce using rule 33 (estatuto -> ciclowhile .)
+    FLOTANTE        reduce using rule 33 (estatuto -> ciclowhile .)
+    TEXTO           reduce using rule 33 (estatuto -> ciclowhile .)
+    BOLEANO         reduce using rule 33 (estatuto -> ciclowhile .)
+    VACIO           reduce using rule 33 (estatuto -> ciclowhile .)
+    }               reduce using rule 33 (estatuto -> ciclowhile .)
+
+
+state 59
+
+    (37) catchIdAsignacionOrLlamadaFunc -> ID . nextIde
+    (26) checkClassExistance -> ID .
+    (38) nextIde -> . . ID
+    (39) nextIde -> .
+
+    ID              reduce using rule 26 (checkClassExistance -> ID .)
+    .               shift and go to state 83
+    (               reduce using rule 39 (nextIde -> .)
+    [               reduce using rule 39 (nextIde -> .)
+    =               reduce using rule 39 (nextIde -> .)
+
+    nextIde                        shift and go to state 82
+
+state 60
+
+    (55) escrituraType -> IMPRIMIRSALTO .
+
+    (               reduce using rule 55 (escrituraType -> IMPRIMIRSALTO .)
+
+
+state 61
+
+    (32) estatuto -> escritura .
+
+    ID              reduce using rule 32 (estatuto -> escritura .)
+    SI              reduce using rule 32 (estatuto -> escritura .)
+    MIENTRAS        reduce using rule 32 (estatuto -> escritura .)
+    LEER            reduce using rule 32 (estatuto -> escritura .)
+    REGRESA         reduce using rule 32 (estatuto -> escritura .)
+    IMPRIMIR        reduce using rule 32 (estatuto -> escritura .)
+    IMPRIMIRSALTO   reduce using rule 32 (estatuto -> escritura .)
+    ENTERO          reduce using rule 32 (estatuto -> escritura .)
+    FLOTANTE        reduce using rule 32 (estatuto -> escritura .)
+    TEXTO           reduce using rule 32 (estatuto -> escritura .)
+    BOLEANO         reduce using rule 32 (estatuto -> escritura .)
+    VACIO           reduce using rule 32 (estatuto -> escritura .)
+    }               reduce using rule 32 (estatuto -> escritura .)
+
+
+state 62
+
+    (61) lectura -> LEER . ( revisaQueExistaID ) ;
+
+    (               shift and go to state 84
+
+
+state 63
+
+    (53) escritura -> escrituraType . ( expresion ) ;
+
+    (               shift and go to state 85
+
+
+state 64
+
+    (135) metodo5 -> REGRESA . expresion ;
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    expresion                      shift and go to state 102
+    exp                            shift and go to state 103
+    parentesisIzq                  shift and go to state 91
+
+state 65
+
+    (54) escrituraType -> IMPRIMIR .
+
+    (               reduce using rule 54 (escrituraType -> IMPRIMIR .)
+
+
+state 66
+
+    (28) bloque1 -> estatuto . bloque1
+    (28) bloque1 -> . estatuto bloque1
+    (29) bloque1 -> .
+    (30) estatuto -> . catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc
+    (31) estatuto -> . condicion
+    (32) estatuto -> . escritura
+    (33) estatuto -> . ciclowhile
+    (34) estatuto -> . lectura
+    (35) estatuto -> . var
+    (36) estatuto -> . metodo5
+    (37) catchIdAsignacionOrLlamadaFunc -> . ID nextIde
+    (56) condicion -> . SI ( superexpresion leftParentesisCondicion bloque condicion1
+    (53) escritura -> . escrituraType ( expresion ) ;
+    (62) ciclowhile -> . MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque
+    (61) lectura -> . LEER ( revisaQueExistaID ) ;
+    (11) var -> . tipo varNombre varsVector var2 ;
+    (135) metodo5 -> . REGRESA expresion ;
+    (54) escrituraType -> . IMPRIMIR
+    (55) escrituraType -> . IMPRIMIRSALTO
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    }               reduce using rule 29 (bloque1 -> .)
+    ID              shift and go to state 59
+    SI              shift and go to state 57
+    MIENTRAS        shift and go to state 68
+    LEER            shift and go to state 62
+    REGRESA         shift and go to state 64
+    IMPRIMIR        shift and go to state 65
+    IMPRIMIRSALTO   shift and go to state 60
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+
+    tipo                           shift and go to state 11
+    checkClassExistance            shift and go to state 15
+    bloque1                        shift and go to state 106
+    lectura                        shift and go to state 54
+    metodo5                        shift and go to state 67
+    condicion                      shift and go to state 55
+    catchIdAsignacionOrLlamadaFunc shift and go to state 56
+    ciclowhile                     shift and go to state 58
+    escritura                      shift and go to state 61
+    escrituraType                  shift and go to state 63
+    estatuto                       shift and go to state 66
+    var                            shift and go to state 69
+
+state 67
+
+    (36) estatuto -> metodo5 .
+
+    ID              reduce using rule 36 (estatuto -> metodo5 .)
+    SI              reduce using rule 36 (estatuto -> metodo5 .)
+    MIENTRAS        reduce using rule 36 (estatuto -> metodo5 .)
+    LEER            reduce using rule 36 (estatuto -> metodo5 .)
+    REGRESA         reduce using rule 36 (estatuto -> metodo5 .)
+    IMPRIMIR        reduce using rule 36 (estatuto -> metodo5 .)
+    IMPRIMIRSALTO   reduce using rule 36 (estatuto -> metodo5 .)
+    ENTERO          reduce using rule 36 (estatuto -> metodo5 .)
+    FLOTANTE        reduce using rule 36 (estatuto -> metodo5 .)
+    TEXTO           reduce using rule 36 (estatuto -> metodo5 .)
+    BOLEANO         reduce using rule 36 (estatuto -> metodo5 .)
+    VACIO           reduce using rule 36 (estatuto -> metodo5 .)
+    }               reduce using rule 36 (estatuto -> metodo5 .)
+
+
+state 68
+
+    (62) ciclowhile -> MIENTRAS . parentesisIzqWhile superexpresion parentesisDerWhile bloque
+    (63) parentesisIzqWhile -> . (
+
+    (               shift and go to state 107
+
+    parentesisIzqWhile             shift and go to state 108
+
+state 69
+
+    (35) estatuto -> var .
+
+    ID              reduce using rule 35 (estatuto -> var .)
+    SI              reduce using rule 35 (estatuto -> var .)
+    MIENTRAS        reduce using rule 35 (estatuto -> var .)
+    LEER            reduce using rule 35 (estatuto -> var .)
+    REGRESA         reduce using rule 35 (estatuto -> var .)
+    IMPRIMIR        reduce using rule 35 (estatuto -> var .)
+    IMPRIMIRSALTO   reduce using rule 35 (estatuto -> var .)
+    ENTERO          reduce using rule 35 (estatuto -> var .)
+    FLOTANTE        reduce using rule 35 (estatuto -> var .)
+    TEXTO           reduce using rule 35 (estatuto -> var .)
+    BOLEANO         reduce using rule 35 (estatuto -> var .)
+    VACIO           reduce using rule 35 (estatuto -> var .)
+    }               reduce using rule 35 (estatuto -> var .)
+
+
+state 70
+
+    (17) funcion -> FUNCION tipo nombreFuncion ( metodo2 . agregaFirma bloque
+    (19) agregaFirma -> . )
+
+    )               shift and go to state 110
+
+    agregaFirma                    shift and go to state 109
+
+state 71
+
+    (130) metodo2 -> tipo . nombreParametro metodo21
+    (134) nombreParametro -> . ID
+
+    ID              shift and go to state 111
+
+    nombreParametro                shift and go to state 112
+
+state 72
+
+    (14) var2 -> , varNombre varsVector . var2
+    (14) var2 -> . , varNombre varsVector var2
+    (15) var2 -> .
+
+    ,               shift and go to state 41
+    ;               reduce using rule 15 (var2 -> .)
+
+    var2                           shift and go to state 113
+
+state 73
+
+    (128) public -> PUBLICO : vars funciones .
+
+    }               reduce using rule 128 (public -> PUBLICO : vars funciones .)
+
+
+state 74
+
+    (27) bloque -> { bloque1 } .
+
+    SINO            reduce using rule 27 (bloque -> { bloque1 } .)
+    ID              reduce using rule 27 (bloque -> { bloque1 } .)
+    SI              reduce using rule 27 (bloque -> { bloque1 } .)
+    MIENTRAS        reduce using rule 27 (bloque -> { bloque1 } .)
+    LEER            reduce using rule 27 (bloque -> { bloque1 } .)
+    REGRESA         reduce using rule 27 (bloque -> { bloque1 } .)
+    IMPRIMIR        reduce using rule 27 (bloque -> { bloque1 } .)
+    IMPRIMIRSALTO   reduce using rule 27 (bloque -> { bloque1 } .)
+    ENTERO          reduce using rule 27 (bloque -> { bloque1 } .)
+    FLOTANTE        reduce using rule 27 (bloque -> { bloque1 } .)
+    TEXTO           reduce using rule 27 (bloque -> { bloque1 } .)
+    BOLEANO         reduce using rule 27 (bloque -> { bloque1 } .)
+    VACIO           reduce using rule 27 (bloque -> { bloque1 } .)
+    }               reduce using rule 27 (bloque -> { bloque1 } .)
+    FUNCION         reduce using rule 27 (bloque -> { bloque1 } .)
+    PROGRAMA        reduce using rule 27 (bloque -> { bloque1 } .)
+    $end            reduce using rule 27 (bloque -> { bloque1 } .)
+
+
+state 75
+
+    (42) llamadaFuncion -> verificarProc . parametrosLlamada ) ;
+    (44) parametrosLlamada -> . expresion parametrosLlamada2
+    (45) parametrosLlamada -> .
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    )               reduce using rule 45 (parametrosLlamada -> .)
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    expresion                      shift and go to state 114
+    parametrosLlamada              shift and go to state 115
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 103
+    parentesisIzq                  shift and go to state 91
+
+state 76
+
+    (43) verificarProc -> ( .
+
+    (               reduce using rule 43 (verificarProc -> ( .)
+    +               reduce using rule 43 (verificarProc -> ( .)
+    -               reduce using rule 43 (verificarProc -> ( .)
+    NULO            reduce using rule 43 (verificarProc -> ( .)
+    CTE_ENTERO      reduce using rule 43 (verificarProc -> ( .)
+    CTE_FLOTANTE    reduce using rule 43 (verificarProc -> ( .)
+    CTE_TEXTO       reduce using rule 43 (verificarProc -> ( .)
+    VERDADERO       reduce using rule 43 (verificarProc -> ( .)
+    FALSO           reduce using rule 43 (verificarProc -> ( .)
+    ID              reduce using rule 43 (verificarProc -> ( .)
+    )               reduce using rule 43 (verificarProc -> ( .)
+
+
+state 77
+
+    (30) estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .
+
+    ID              reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    SI              reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    MIENTRAS        reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    LEER            reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    REGRESA         reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    IMPRIMIR        reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    IMPRIMIRSALTO   reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    ENTERO          reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    FLOTANTE        reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    TEXTO           reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    BOLEANO         reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    VACIO           reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+    }               reduce using rule 30 (estatuto -> catchIdAsignacionOrLlamadaFunc asignacionOrLlamadaFunc .)
+
+
+state 78
+
+    (40) asignacionOrLlamadaFunc -> llamadaFuncion .
+
+    ID              reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    SI              reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    MIENTRAS        reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    LEER            reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    REGRESA         reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    IMPRIMIR        reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    IMPRIMIRSALTO   reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    ENTERO          reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    FLOTANTE        reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    TEXTO           reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    BOLEANO         reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    VACIO           reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+    }               reduce using rule 40 (asignacionOrLlamadaFunc -> llamadaFuncion .)
+
+
+state 79
+
+    (48) asignacion -> revisaQueExistaID . asignacion1 = expresion ;
+    (50) asignacion1 -> . vectorAsignacion
+    (51) asignacion1 -> .
+    (52) vectorAsignacion -> . [ exp ]
+
+    =               reduce using rule 51 (asignacion1 -> .)
+    [               shift and go to state 116
+
+    vectorAsignacion               shift and go to state 117
+    asignacion1                    shift and go to state 118
+
+state 80
+
+    (41) asignacionOrLlamadaFunc -> asignacion .
+
+    ID              reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    SI              reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    MIENTRAS        reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    LEER            reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    REGRESA         reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    IMPRIMIR        reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    IMPRIMIRSALTO   reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    ENTERO          reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    FLOTANTE        reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    TEXTO           reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    BOLEANO         reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    VACIO           reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+    }               reduce using rule 41 (asignacionOrLlamadaFunc -> asignacion .)
+
+
+state 81
+
+    (56) condicion -> SI ( . superexpresion leftParentesisCondicion bloque condicion1
+    (65) superexpresion -> . expresion checaSuperExpresion superexpresion1
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    factor                         shift and go to state 87
+    varcte                         shift and go to state 89
+    parentesisIzq                  shift and go to state 91
+    varcteID                       shift and go to state 94
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    constantes                     shift and go to state 97
+    operationFactor                shift and go to state 98
+    expresion                      shift and go to state 120
+    superexpresion                 shift and go to state 119
+    exp                            shift and go to state 103
+
+state 82
+
+    (37) catchIdAsignacionOrLlamadaFunc -> ID nextIde .
+
+    (               reduce using rule 37 (catchIdAsignacionOrLlamadaFunc -> ID nextIde .)
+    [               reduce using rule 37 (catchIdAsignacionOrLlamadaFunc -> ID nextIde .)
+    =               reduce using rule 37 (catchIdAsignacionOrLlamadaFunc -> ID nextIde .)
+
+
+state 83
+
+    (38) nextIde -> . . ID
+
+    ID              shift and go to state 121
+
+
+state 84
+
+    (61) lectura -> LEER ( . revisaQueExistaID ) ;
+    (49) revisaQueExistaID -> .
+
+    )               reduce using rule 49 (revisaQueExistaID -> .)
+
+    revisaQueExistaID              shift and go to state 122
+
+state 85
+
+    (53) escritura -> escrituraType ( . expresion ) ;
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    operationFactor                shift and go to state 98
+    termino                        shift and go to state 96
+    expresion                      shift and go to state 123
+    exp                            shift and go to state 103
+    parentesisIzq                  shift and go to state 91
+    guardarVarcteId                shift and go to state 95
+
+state 86
+
+    (95) parentesisIzq -> ( .
+
+    (               reduce using rule 95 (parentesisIzq -> ( .)
+    +               reduce using rule 95 (parentesisIzq -> ( .)
+    -               reduce using rule 95 (parentesisIzq -> ( .)
+    NULO            reduce using rule 95 (parentesisIzq -> ( .)
+    CTE_ENTERO      reduce using rule 95 (parentesisIzq -> ( .)
+    CTE_FLOTANTE    reduce using rule 95 (parentesisIzq -> ( .)
+    CTE_TEXTO       reduce using rule 95 (parentesisIzq -> ( .)
+    VERDADERO       reduce using rule 95 (parentesisIzq -> ( .)
+    FALSO           reduce using rule 95 (parentesisIzq -> ( .)
+    ID              reduce using rule 95 (parentesisIzq -> ( .)
+    )               reduce using rule 95 (parentesisIzq -> ( .)
+
+
+state 87
+
+    (85) termino -> factor . checaTermino termino1
+    (88) checaTermino -> .
+
+    *               reduce using rule 88 (checaTermino -> .)
+    /               reduce using rule 88 (checaTermino -> .)
+    %               reduce using rule 88 (checaTermino -> .)
+    +               reduce using rule 88 (checaTermino -> .)
+    -               reduce using rule 88 (checaTermino -> .)
+    >               reduce using rule 88 (checaTermino -> .)
+    GE              reduce using rule 88 (checaTermino -> .)
+    <               reduce using rule 88 (checaTermino -> .)
+    LE              reduce using rule 88 (checaTermino -> .)
+    NEQ             reduce using rule 88 (checaTermino -> .)
+    EQ              reduce using rule 88 (checaTermino -> .)
+    ;               reduce using rule 88 (checaTermino -> .)
+    ,               reduce using rule 88 (checaTermino -> .)
+    )               reduce using rule 88 (checaTermino -> .)
+    Y               reduce using rule 88 (checaTermino -> .)
+    O               reduce using rule 88 (checaTermino -> .)
+    ]               reduce using rule 88 (checaTermino -> .)
+
+    checaTermino                   shift and go to state 124
+
+state 88
+
+    (97) operationFactor -> + .
+
+    NULO            reduce using rule 97 (operationFactor -> + .)
+    CTE_ENTERO      reduce using rule 97 (operationFactor -> + .)
+    CTE_FLOTANTE    reduce using rule 97 (operationFactor -> + .)
+    CTE_TEXTO       reduce using rule 97 (operationFactor -> + .)
+    VERDADERO       reduce using rule 97 (operationFactor -> + .)
+    FALSO           reduce using rule 97 (operationFactor -> + .)
+    ID              reduce using rule 97 (operationFactor -> + .)
+
+
+state 89
+
+    (94) factor -> varcte .
+
+    *               reduce using rule 94 (factor -> varcte .)
+    /               reduce using rule 94 (factor -> varcte .)
+    %               reduce using rule 94 (factor -> varcte .)
+    +               reduce using rule 94 (factor -> varcte .)
+    -               reduce using rule 94 (factor -> varcte .)
+    >               reduce using rule 94 (factor -> varcte .)
+    GE              reduce using rule 94 (factor -> varcte .)
+    <               reduce using rule 94 (factor -> varcte .)
+    LE              reduce using rule 94 (factor -> varcte .)
+    NEQ             reduce using rule 94 (factor -> varcte .)
+    EQ              reduce using rule 94 (factor -> varcte .)
+    Y               reduce using rule 94 (factor -> varcte .)
+    O               reduce using rule 94 (factor -> varcte .)
+    )               reduce using rule 94 (factor -> varcte .)
+    ,               reduce using rule 94 (factor -> varcte .)
+    ;               reduce using rule 94 (factor -> varcte .)
+    ]               reduce using rule 94 (factor -> varcte .)
+
+
+state 90
+
+    (103) constantes -> CTE_FLOTANTE .
+
+    *               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    /               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    %               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    +               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    -               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    ]               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    ;               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    ,               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    )               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    Y               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    O               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    >               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    GE              reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    <               reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    LE              reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    NEQ             reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+    EQ              reduce using rule 103 (constantes -> CTE_FLOTANTE .)
+
+
+state 91
+
+    (92) factor -> parentesisIzq . superexpresion parentesisDer
+    (65) superexpresion -> . expresion checaSuperExpresion superexpresion1
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    parentesisIzq                  shift and go to state 91
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    expresion                      shift and go to state 120
+    superexpresion                 shift and go to state 125
+    exp                            shift and go to state 103
+
+state 92
+
+    (108) guardarVarcteId -> ID .
+
+    .               reduce using rule 108 (guardarVarcteId -> ID .)
+    (               reduce using rule 108 (guardarVarcteId -> ID .)
+    [               reduce using rule 108 (guardarVarcteId -> ID .)
+    *               reduce using rule 108 (guardarVarcteId -> ID .)
+    /               reduce using rule 108 (guardarVarcteId -> ID .)
+    %               reduce using rule 108 (guardarVarcteId -> ID .)
+    +               reduce using rule 108 (guardarVarcteId -> ID .)
+    -               reduce using rule 108 (guardarVarcteId -> ID .)
+    >               reduce using rule 108 (guardarVarcteId -> ID .)
+    GE              reduce using rule 108 (guardarVarcteId -> ID .)
+    <               reduce using rule 108 (guardarVarcteId -> ID .)
+    LE              reduce using rule 108 (guardarVarcteId -> ID .)
+    NEQ             reduce using rule 108 (guardarVarcteId -> ID .)
+    EQ              reduce using rule 108 (guardarVarcteId -> ID .)
+    ;               reduce using rule 108 (guardarVarcteId -> ID .)
+    ,               reduce using rule 108 (guardarVarcteId -> ID .)
+    )               reduce using rule 108 (guardarVarcteId -> ID .)
+    Y               reduce using rule 108 (guardarVarcteId -> ID .)
+    O               reduce using rule 108 (guardarVarcteId -> ID .)
+    ]               reduce using rule 108 (guardarVarcteId -> ID .)
+
+
+state 93
+
+    (104) constantes -> CTE_TEXTO .
+
+    *               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    /               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    %               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    +               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    -               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    ]               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    ;               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    ,               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    )               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    Y               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    O               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    >               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    GE              reduce using rule 104 (constantes -> CTE_TEXTO .)
+    <               reduce using rule 104 (constantes -> CTE_TEXTO .)
+    LE              reduce using rule 104 (constantes -> CTE_TEXTO .)
+    NEQ             reduce using rule 104 (constantes -> CTE_TEXTO .)
+    EQ              reduce using rule 104 (constantes -> CTE_TEXTO .)
+
+
+state 94
+
+    (99) varcte -> varcteID .
+
+    *               reduce using rule 99 (varcte -> varcteID .)
+    /               reduce using rule 99 (varcte -> varcteID .)
+    %               reduce using rule 99 (varcte -> varcteID .)
+    +               reduce using rule 99 (varcte -> varcteID .)
+    -               reduce using rule 99 (varcte -> varcteID .)
+    >               reduce using rule 99 (varcte -> varcteID .)
+    GE              reduce using rule 99 (varcte -> varcteID .)
+    <               reduce using rule 99 (varcte -> varcteID .)
+    LE              reduce using rule 99 (varcte -> varcteID .)
+    NEQ             reduce using rule 99 (varcte -> varcteID .)
+    EQ              reduce using rule 99 (varcte -> varcteID .)
+    ;               reduce using rule 99 (varcte -> varcteID .)
+    ,               reduce using rule 99 (varcte -> varcteID .)
+    )               reduce using rule 99 (varcte -> varcteID .)
+    Y               reduce using rule 99 (varcte -> varcteID .)
+    O               reduce using rule 99 (varcte -> varcteID .)
+    ]               reduce using rule 99 (varcte -> varcteID .)
+
+
+state 95
+
+    (107) varcteID -> guardarVarcteId . varct
+    (109) varct -> . varcte1
+    (110) varct -> . varcte2
+    (111) varct -> . vectorExp
+    (112) varct -> .
+    (113) varcte1 -> . . ID
+    (118) varcte2 -> . parentesisIzq saveTempNombreFunc varcte3 parentesisDer
+    (114) vectorExp -> . corcheteIzq saveTempNombreVector exp corcheteDer
+    (95) parentesisIzq -> . (
+    (116) corcheteIzq -> . [
+
+    *               reduce using rule 112 (varct -> .)
+    /               reduce using rule 112 (varct -> .)
+    %               reduce using rule 112 (varct -> .)
+    +               reduce using rule 112 (varct -> .)
+    -               reduce using rule 112 (varct -> .)
+    >               reduce using rule 112 (varct -> .)
+    GE              reduce using rule 112 (varct -> .)
+    <               reduce using rule 112 (varct -> .)
+    LE              reduce using rule 112 (varct -> .)
+    NEQ             reduce using rule 112 (varct -> .)
+    EQ              reduce using rule 112 (varct -> .)
+    ;               reduce using rule 112 (varct -> .)
+    ,               reduce using rule 112 (varct -> .)
+    )               reduce using rule 112 (varct -> .)
+    Y               reduce using rule 112 (varct -> .)
+    O               reduce using rule 112 (varct -> .)
+    ]               reduce using rule 112 (varct -> .)
+    .               shift and go to state 132
+    (               shift and go to state 86
+    [               shift and go to state 133
+
+    varcte1                        shift and go to state 126
+    vectorExp                      shift and go to state 127
+    varcte2                        shift and go to state 128
+    varct                          shift and go to state 129
+    corcheteIzq                    shift and go to state 130
+    parentesisIzq                  shift and go to state 131
+
+state 96
+
+    (79) exp -> termino . checaExp exp1
+    (80) checaExp -> .
+
+    +               reduce using rule 80 (checaExp -> .)
+    -               reduce using rule 80 (checaExp -> .)
+    >               reduce using rule 80 (checaExp -> .)
+    GE              reduce using rule 80 (checaExp -> .)
+    <               reduce using rule 80 (checaExp -> .)
+    LE              reduce using rule 80 (checaExp -> .)
+    NEQ             reduce using rule 80 (checaExp -> .)
+    EQ              reduce using rule 80 (checaExp -> .)
+    ;               reduce using rule 80 (checaExp -> .)
+    ,               reduce using rule 80 (checaExp -> .)
+    )               reduce using rule 80 (checaExp -> .)
+    Y               reduce using rule 80 (checaExp -> .)
+    O               reduce using rule 80 (checaExp -> .)
+    ]               reduce using rule 80 (checaExp -> .)
+
+    checaExp                       shift and go to state 134
+
+state 97
+
+    (100) varcte -> constantes .
+
+    *               reduce using rule 100 (varcte -> constantes .)
+    /               reduce using rule 100 (varcte -> constantes .)
+    %               reduce using rule 100 (varcte -> constantes .)
+    +               reduce using rule 100 (varcte -> constantes .)
+    -               reduce using rule 100 (varcte -> constantes .)
+    >               reduce using rule 100 (varcte -> constantes .)
+    GE              reduce using rule 100 (varcte -> constantes .)
+    <               reduce using rule 100 (varcte -> constantes .)
+    LE              reduce using rule 100 (varcte -> constantes .)
+    NEQ             reduce using rule 100 (varcte -> constantes .)
+    EQ              reduce using rule 100 (varcte -> constantes .)
+    ;               reduce using rule 100 (varcte -> constantes .)
+    ,               reduce using rule 100 (varcte -> constantes .)
+    )               reduce using rule 100 (varcte -> constantes .)
+    Y               reduce using rule 100 (varcte -> constantes .)
+    O               reduce using rule 100 (varcte -> constantes .)
+    ]               reduce using rule 100 (varcte -> constantes .)
+
+
+state 98
+
+    (93) factor -> operationFactor . varcte
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 135
+    guardarVarcteId                shift and go to state 95
+
+state 99
+
+    (101) varcte -> NULO .
+
+    *               reduce using rule 101 (varcte -> NULO .)
+    /               reduce using rule 101 (varcte -> NULO .)
+    %               reduce using rule 101 (varcte -> NULO .)
+    +               reduce using rule 101 (varcte -> NULO .)
+    -               reduce using rule 101 (varcte -> NULO .)
+    >               reduce using rule 101 (varcte -> NULO .)
+    GE              reduce using rule 101 (varcte -> NULO .)
+    <               reduce using rule 101 (varcte -> NULO .)
+    LE              reduce using rule 101 (varcte -> NULO .)
+    NEQ             reduce using rule 101 (varcte -> NULO .)
+    EQ              reduce using rule 101 (varcte -> NULO .)
+    ;               reduce using rule 101 (varcte -> NULO .)
+    ,               reduce using rule 101 (varcte -> NULO .)
+    )               reduce using rule 101 (varcte -> NULO .)
+    Y               reduce using rule 101 (varcte -> NULO .)
+    O               reduce using rule 101 (varcte -> NULO .)
+    ]               reduce using rule 101 (varcte -> NULO .)
+
+
+state 100
+
+    (102) constantes -> CTE_ENTERO .
+
+    *               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    /               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    %               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    +               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    -               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    ]               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    ;               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    ,               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    )               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    Y               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    O               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    >               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    GE              reduce using rule 102 (constantes -> CTE_ENTERO .)
+    <               reduce using rule 102 (constantes -> CTE_ENTERO .)
+    LE              reduce using rule 102 (constantes -> CTE_ENTERO .)
+    NEQ             reduce using rule 102 (constantes -> CTE_ENTERO .)
+    EQ              reduce using rule 102 (constantes -> CTE_ENTERO .)
+
+
+state 101
+
+    (105) constantes -> VERDADERO .
+
+    *               reduce using rule 105 (constantes -> VERDADERO .)
+    /               reduce using rule 105 (constantes -> VERDADERO .)
+    %               reduce using rule 105 (constantes -> VERDADERO .)
+    +               reduce using rule 105 (constantes -> VERDADERO .)
+    -               reduce using rule 105 (constantes -> VERDADERO .)
+    ]               reduce using rule 105 (constantes -> VERDADERO .)
+    ;               reduce using rule 105 (constantes -> VERDADERO .)
+    ,               reduce using rule 105 (constantes -> VERDADERO .)
+    )               reduce using rule 105 (constantes -> VERDADERO .)
+    Y               reduce using rule 105 (constantes -> VERDADERO .)
+    O               reduce using rule 105 (constantes -> VERDADERO .)
+    >               reduce using rule 105 (constantes -> VERDADERO .)
+    GE              reduce using rule 105 (constantes -> VERDADERO .)
+    <               reduce using rule 105 (constantes -> VERDADERO .)
+    LE              reduce using rule 105 (constantes -> VERDADERO .)
+    NEQ             reduce using rule 105 (constantes -> VERDADERO .)
+    EQ              reduce using rule 105 (constantes -> VERDADERO .)
+
+
+state 102
+
+    (135) metodo5 -> REGRESA expresion . ;
+
+    ;               shift and go to state 136
+
+
+state 103
+
+    (71) expresion -> exp . expresion1
+    (72) expresion1 -> . > exp
+    (73) expresion1 -> . GE exp
+    (74) expresion1 -> . < exp
+    (75) expresion1 -> . LE exp
+    (76) expresion1 -> . NEQ exp
+    (77) expresion1 -> . EQ exp
+    (78) expresion1 -> .
+
+    >               shift and go to state 142
+    GE              shift and go to state 143
+    <               shift and go to state 141
+    LE              shift and go to state 137
+    NEQ             shift and go to state 138
+    EQ              shift and go to state 139
+    ;               reduce using rule 78 (expresion1 -> .)
+    ,               reduce using rule 78 (expresion1 -> .)
+    )               reduce using rule 78 (expresion1 -> .)
+    Y               reduce using rule 78 (expresion1 -> .)
+    O               reduce using rule 78 (expresion1 -> .)
+
+    expresion1                     shift and go to state 140
+
+state 104
+
+    (106) constantes -> FALSO .
+
+    *               reduce using rule 106 (constantes -> FALSO .)
+    /               reduce using rule 106 (constantes -> FALSO .)
+    %               reduce using rule 106 (constantes -> FALSO .)
+    +               reduce using rule 106 (constantes -> FALSO .)
+    -               reduce using rule 106 (constantes -> FALSO .)
+    ]               reduce using rule 106 (constantes -> FALSO .)
+    ;               reduce using rule 106 (constantes -> FALSO .)
+    ,               reduce using rule 106 (constantes -> FALSO .)
+    )               reduce using rule 106 (constantes -> FALSO .)
+    Y               reduce using rule 106 (constantes -> FALSO .)
+    O               reduce using rule 106 (constantes -> FALSO .)
+    >               reduce using rule 106 (constantes -> FALSO .)
+    GE              reduce using rule 106 (constantes -> FALSO .)
+    <               reduce using rule 106 (constantes -> FALSO .)
+    LE              reduce using rule 106 (constantes -> FALSO .)
+    NEQ             reduce using rule 106 (constantes -> FALSO .)
+    EQ              reduce using rule 106 (constantes -> FALSO .)
+
+
+state 105
+
+    (98) operationFactor -> - .
+
+    NULO            reduce using rule 98 (operationFactor -> - .)
+    CTE_ENTERO      reduce using rule 98 (operationFactor -> - .)
+    CTE_FLOTANTE    reduce using rule 98 (operationFactor -> - .)
+    CTE_TEXTO       reduce using rule 98 (operationFactor -> - .)
+    VERDADERO       reduce using rule 98 (operationFactor -> - .)
+    FALSO           reduce using rule 98 (operationFactor -> - .)
+    ID              reduce using rule 98 (operationFactor -> - .)
+
+
+state 106
+
+    (28) bloque1 -> estatuto bloque1 .
+
+    }               reduce using rule 28 (bloque1 -> estatuto bloque1 .)
+
+
+state 107
+
+    (63) parentesisIzqWhile -> ( .
+
+    (               reduce using rule 63 (parentesisIzqWhile -> ( .)
+    +               reduce using rule 63 (parentesisIzqWhile -> ( .)
+    -               reduce using rule 63 (parentesisIzqWhile -> ( .)
+    NULO            reduce using rule 63 (parentesisIzqWhile -> ( .)
+    CTE_ENTERO      reduce using rule 63 (parentesisIzqWhile -> ( .)
+    CTE_FLOTANTE    reduce using rule 63 (parentesisIzqWhile -> ( .)
+    CTE_TEXTO       reduce using rule 63 (parentesisIzqWhile -> ( .)
+    VERDADERO       reduce using rule 63 (parentesisIzqWhile -> ( .)
+    FALSO           reduce using rule 63 (parentesisIzqWhile -> ( .)
+    ID              reduce using rule 63 (parentesisIzqWhile -> ( .)
+
+
+state 108
+
+    (62) ciclowhile -> MIENTRAS parentesisIzqWhile . superexpresion parentesisDerWhile bloque
+    (65) superexpresion -> . expresion checaSuperExpresion superexpresion1
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    expresion                      shift and go to state 120
+    superexpresion                 shift and go to state 144
+    parentesisIzq                  shift and go to state 91
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    varcte                         shift and go to state 89
+    exp                            shift and go to state 103
+
+state 109
+
+    (17) funcion -> FUNCION tipo nombreFuncion ( metodo2 agregaFirma . bloque
+    (27) bloque -> . { bloque1 }
+
+    {               shift and go to state 45
+
+    bloque                         shift and go to state 145
+
+state 110
+
+    (19) agregaFirma -> ) .
+
+    {               reduce using rule 19 (agregaFirma -> ) .)
+
+
+state 111
+
+    (134) nombreParametro -> ID .
+
+    ,               reduce using rule 134 (nombreParametro -> ID .)
+    )               reduce using rule 134 (nombreParametro -> ID .)
+
+
+state 112
+
+    (130) metodo2 -> tipo nombreParametro . metodo21
+    (132) metodo21 -> . , tipo nombreParametro metodo21
+    (133) metodo21 -> .
+
+    ,               shift and go to state 147
+    )               reduce using rule 133 (metodo21 -> .)
+
+    metodo21                       shift and go to state 146
+
+state 113
+
+    (14) var2 -> , varNombre varsVector var2 .
+
+    ;               reduce using rule 14 (var2 -> , varNombre varsVector var2 .)
+
+
+state 114
+
+    (44) parametrosLlamada -> expresion . parametrosLlamada2
+    (46) parametrosLlamada2 -> . , expresion parametrosLlamada2
+    (47) parametrosLlamada2 -> .
+
+    ,               shift and go to state 149
+    )               reduce using rule 47 (parametrosLlamada2 -> .)
+
+    parametrosLlamada2             shift and go to state 148
+
+state 115
+
+    (42) llamadaFuncion -> verificarProc parametrosLlamada . ) ;
+
+    )               shift and go to state 150
+
+
+state 116
+
+    (52) vectorAsignacion -> [ . exp ]
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 151
+    parentesisIzq                  shift and go to state 91
+
+state 117
+
+    (50) asignacion1 -> vectorAsignacion .
+
+    =               reduce using rule 50 (asignacion1 -> vectorAsignacion .)
+
+
+state 118
+
+    (48) asignacion -> revisaQueExistaID asignacion1 . = expresion ;
+
+    =               shift and go to state 152
+
+
+state 119
+
+    (56) condicion -> SI ( superexpresion . leftParentesisCondicion bloque condicion1
+    (57) leftParentesisCondicion -> . )
+
+    )               shift and go to state 154
+
+    leftParentesisCondicion        shift and go to state 153
+
+state 120
+
+    (65) superexpresion -> expresion . checaSuperExpresion superexpresion1
+    (66) checaSuperExpresion -> .
+
+    Y               reduce using rule 66 (checaSuperExpresion -> .)
+    O               reduce using rule 66 (checaSuperExpresion -> .)
+    )               reduce using rule 66 (checaSuperExpresion -> .)
+
+    checaSuperExpresion            shift and go to state 155
+
+state 121
+
+    (38) nextIde -> . ID .
+
+    (               reduce using rule 38 (nextIde -> . ID .)
+    [               reduce using rule 38 (nextIde -> . ID .)
+    =               reduce using rule 38 (nextIde -> . ID .)
+
+
+state 122
+
+    (61) lectura -> LEER ( revisaQueExistaID . ) ;
+
+    )               shift and go to state 156
+
+
+state 123
+
+    (53) escritura -> escrituraType ( expresion . ) ;
+
+    )               shift and go to state 157
+
+
+state 124
+
+    (85) termino -> factor checaTermino . termino1
+    (86) termino1 -> . operationTermino termino
+    (87) termino1 -> .
+    (89) operationTermino -> . *
+    (90) operationTermino -> . /
+    (91) operationTermino -> . %
+
+    +               reduce using rule 87 (termino1 -> .)
+    -               reduce using rule 87 (termino1 -> .)
+    >               reduce using rule 87 (termino1 -> .)
+    GE              reduce using rule 87 (termino1 -> .)
+    <               reduce using rule 87 (termino1 -> .)
+    LE              reduce using rule 87 (termino1 -> .)
+    NEQ             reduce using rule 87 (termino1 -> .)
+    EQ              reduce using rule 87 (termino1 -> .)
+    ;               reduce using rule 87 (termino1 -> .)
+    ,               reduce using rule 87 (termino1 -> .)
+    )               reduce using rule 87 (termino1 -> .)
+    Y               reduce using rule 87 (termino1 -> .)
+    O               reduce using rule 87 (termino1 -> .)
+    ]               reduce using rule 87 (termino1 -> .)
+    *               shift and go to state 162
+    /               shift and go to state 158
+    %               shift and go to state 160
+
+    termino1                       shift and go to state 161
+    operationTermino               shift and go to state 159
+
+state 125
+
+    (92) factor -> parentesisIzq superexpresion . parentesisDer
+    (96) parentesisDer -> . )
+
+    )               shift and go to state 164
+
+    parentesisDer                  shift and go to state 163
+
+state 126
+
+    (109) varct -> varcte1 .
+
+    *               reduce using rule 109 (varct -> varcte1 .)
+    /               reduce using rule 109 (varct -> varcte1 .)
+    %               reduce using rule 109 (varct -> varcte1 .)
+    +               reduce using rule 109 (varct -> varcte1 .)
+    -               reduce using rule 109 (varct -> varcte1 .)
+    >               reduce using rule 109 (varct -> varcte1 .)
+    GE              reduce using rule 109 (varct -> varcte1 .)
+    <               reduce using rule 109 (varct -> varcte1 .)
+    LE              reduce using rule 109 (varct -> varcte1 .)
+    NEQ             reduce using rule 109 (varct -> varcte1 .)
+    EQ              reduce using rule 109 (varct -> varcte1 .)
+    ;               reduce using rule 109 (varct -> varcte1 .)
+    ,               reduce using rule 109 (varct -> varcte1 .)
+    )               reduce using rule 109 (varct -> varcte1 .)
+    Y               reduce using rule 109 (varct -> varcte1 .)
+    O               reduce using rule 109 (varct -> varcte1 .)
+    ]               reduce using rule 109 (varct -> varcte1 .)
+
+
+state 127
+
+    (111) varct -> vectorExp .
+
+    *               reduce using rule 111 (varct -> vectorExp .)
+    /               reduce using rule 111 (varct -> vectorExp .)
+    %               reduce using rule 111 (varct -> vectorExp .)
+    +               reduce using rule 111 (varct -> vectorExp .)
+    -               reduce using rule 111 (varct -> vectorExp .)
+    >               reduce using rule 111 (varct -> vectorExp .)
+    GE              reduce using rule 111 (varct -> vectorExp .)
+    <               reduce using rule 111 (varct -> vectorExp .)
+    LE              reduce using rule 111 (varct -> vectorExp .)
+    NEQ             reduce using rule 111 (varct -> vectorExp .)
+    EQ              reduce using rule 111 (varct -> vectorExp .)
+    ;               reduce using rule 111 (varct -> vectorExp .)
+    ,               reduce using rule 111 (varct -> vectorExp .)
+    )               reduce using rule 111 (varct -> vectorExp .)
+    Y               reduce using rule 111 (varct -> vectorExp .)
+    O               reduce using rule 111 (varct -> vectorExp .)
+    ]               reduce using rule 111 (varct -> vectorExp .)
+
+
+state 128
+
+    (110) varct -> varcte2 .
+
+    *               reduce using rule 110 (varct -> varcte2 .)
+    /               reduce using rule 110 (varct -> varcte2 .)
+    %               reduce using rule 110 (varct -> varcte2 .)
+    +               reduce using rule 110 (varct -> varcte2 .)
+    -               reduce using rule 110 (varct -> varcte2 .)
+    >               reduce using rule 110 (varct -> varcte2 .)
+    GE              reduce using rule 110 (varct -> varcte2 .)
+    <               reduce using rule 110 (varct -> varcte2 .)
+    LE              reduce using rule 110 (varct -> varcte2 .)
+    NEQ             reduce using rule 110 (varct -> varcte2 .)
+    EQ              reduce using rule 110 (varct -> varcte2 .)
+    ;               reduce using rule 110 (varct -> varcte2 .)
+    ,               reduce using rule 110 (varct -> varcte2 .)
+    )               reduce using rule 110 (varct -> varcte2 .)
+    Y               reduce using rule 110 (varct -> varcte2 .)
+    O               reduce using rule 110 (varct -> varcte2 .)
+    ]               reduce using rule 110 (varct -> varcte2 .)
+
+
+state 129
+
+    (107) varcteID -> guardarVarcteId varct .
+
+    *               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    /               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    %               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    +               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    -               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    >               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    GE              reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    <               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    LE              reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    NEQ             reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    EQ              reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    Y               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    O               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    )               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    ,               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    ;               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+    ]               reduce using rule 107 (varcteID -> guardarVarcteId varct .)
+
+
+state 130
+
+    (114) vectorExp -> corcheteIzq . saveTempNombreVector exp corcheteDer
+    (115) saveTempNombreVector -> .
+
+    (               reduce using rule 115 (saveTempNombreVector -> .)
+    +               reduce using rule 115 (saveTempNombreVector -> .)
+    -               reduce using rule 115 (saveTempNombreVector -> .)
+    NULO            reduce using rule 115 (saveTempNombreVector -> .)
+    CTE_ENTERO      reduce using rule 115 (saveTempNombreVector -> .)
+    CTE_FLOTANTE    reduce using rule 115 (saveTempNombreVector -> .)
+    CTE_TEXTO       reduce using rule 115 (saveTempNombreVector -> .)
+    VERDADERO       reduce using rule 115 (saveTempNombreVector -> .)
+    FALSO           reduce using rule 115 (saveTempNombreVector -> .)
+    ID              reduce using rule 115 (saveTempNombreVector -> .)
+
+    saveTempNombreVector           shift and go to state 165
+
+state 131
+
+    (118) varcte2 -> parentesisIzq . saveTempNombreFunc varcte3 parentesisDer
+    (119) saveTempNombreFunc -> .
+
+    (               reduce using rule 119 (saveTempNombreFunc -> .)
+    +               reduce using rule 119 (saveTempNombreFunc -> .)
+    -               reduce using rule 119 (saveTempNombreFunc -> .)
+    NULO            reduce using rule 119 (saveTempNombreFunc -> .)
+    CTE_ENTERO      reduce using rule 119 (saveTempNombreFunc -> .)
+    CTE_FLOTANTE    reduce using rule 119 (saveTempNombreFunc -> .)
+    CTE_TEXTO       reduce using rule 119 (saveTempNombreFunc -> .)
+    VERDADERO       reduce using rule 119 (saveTempNombreFunc -> .)
+    FALSO           reduce using rule 119 (saveTempNombreFunc -> .)
+    ID              reduce using rule 119 (saveTempNombreFunc -> .)
+    )               reduce using rule 119 (saveTempNombreFunc -> .)
+
+    saveTempNombreFunc             shift and go to state 166
+
+state 132
+
+    (113) varcte1 -> . . ID
+
+    ID              shift and go to state 167
+
+
+state 133
+
+    (116) corcheteIzq -> [ .
+
+    (               reduce using rule 116 (corcheteIzq -> [ .)
+    +               reduce using rule 116 (corcheteIzq -> [ .)
+    -               reduce using rule 116 (corcheteIzq -> [ .)
+    NULO            reduce using rule 116 (corcheteIzq -> [ .)
+    CTE_ENTERO      reduce using rule 116 (corcheteIzq -> [ .)
+    CTE_FLOTANTE    reduce using rule 116 (corcheteIzq -> [ .)
+    CTE_TEXTO       reduce using rule 116 (corcheteIzq -> [ .)
+    VERDADERO       reduce using rule 116 (corcheteIzq -> [ .)
+    FALSO           reduce using rule 116 (corcheteIzq -> [ .)
+    ID              reduce using rule 116 (corcheteIzq -> [ .)
+
+
+state 134
+
+    (79) exp -> termino checaExp . exp1
+    (81) exp1 -> . operationExp exp
+    (82) exp1 -> .
+    (83) operationExp -> . +
+    (84) operationExp -> . -
+
+    >               reduce using rule 82 (exp1 -> .)
+    GE              reduce using rule 82 (exp1 -> .)
+    <               reduce using rule 82 (exp1 -> .)
+    LE              reduce using rule 82 (exp1 -> .)
+    NEQ             reduce using rule 82 (exp1 -> .)
+    EQ              reduce using rule 82 (exp1 -> .)
+    ;               reduce using rule 82 (exp1 -> .)
+    ,               reduce using rule 82 (exp1 -> .)
+    )               reduce using rule 82 (exp1 -> .)
+    Y               reduce using rule 82 (exp1 -> .)
+    O               reduce using rule 82 (exp1 -> .)
+    ]               reduce using rule 82 (exp1 -> .)
+    +               shift and go to state 171
+    -               shift and go to state 169
+
+    exp1                           shift and go to state 168
+    operationExp                   shift and go to state 170
+
+state 135
+
+    (93) factor -> operationFactor varcte .
+
+    *               reduce using rule 93 (factor -> operationFactor varcte .)
+    /               reduce using rule 93 (factor -> operationFactor varcte .)
+    %               reduce using rule 93 (factor -> operationFactor varcte .)
+    +               reduce using rule 93 (factor -> operationFactor varcte .)
+    -               reduce using rule 93 (factor -> operationFactor varcte .)
+    >               reduce using rule 93 (factor -> operationFactor varcte .)
+    GE              reduce using rule 93 (factor -> operationFactor varcte .)
+    <               reduce using rule 93 (factor -> operationFactor varcte .)
+    LE              reduce using rule 93 (factor -> operationFactor varcte .)
+    NEQ             reduce using rule 93 (factor -> operationFactor varcte .)
+    EQ              reduce using rule 93 (factor -> operationFactor varcte .)
+    Y               reduce using rule 93 (factor -> operationFactor varcte .)
+    O               reduce using rule 93 (factor -> operationFactor varcte .)
+    )               reduce using rule 93 (factor -> operationFactor varcte .)
+    ,               reduce using rule 93 (factor -> operationFactor varcte .)
+    ;               reduce using rule 93 (factor -> operationFactor varcte .)
+    ]               reduce using rule 93 (factor -> operationFactor varcte .)
+
+
+state 136
+
+    (135) metodo5 -> REGRESA expresion ; .
+
+    ID              reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    SI              reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    MIENTRAS        reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    LEER            reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    REGRESA         reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    IMPRIMIR        reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    IMPRIMIRSALTO   reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    ENTERO          reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    FLOTANTE        reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    TEXTO           reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    BOLEANO         reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    VACIO           reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+    }               reduce using rule 135 (metodo5 -> REGRESA expresion ; .)
+
+
+state 137
+
+    (75) expresion1 -> LE . exp
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 172
+    parentesisIzq                  shift and go to state 91
+
+state 138
+
+    (76) expresion1 -> NEQ . exp
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 173
+    parentesisIzq                  shift and go to state 91
+
+state 139
+
+    (77) expresion1 -> EQ . exp
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 174
+    parentesisIzq                  shift and go to state 91
+
+state 140
+
+    (71) expresion -> exp expresion1 .
+
+    ,               reduce using rule 71 (expresion -> exp expresion1 .)
+    )               reduce using rule 71 (expresion -> exp expresion1 .)
+    Y               reduce using rule 71 (expresion -> exp expresion1 .)
+    O               reduce using rule 71 (expresion -> exp expresion1 .)
+    ;               reduce using rule 71 (expresion -> exp expresion1 .)
+
+
+state 141
+
+    (74) expresion1 -> < . exp
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 175
+    parentesisIzq                  shift and go to state 91
+
+state 142
+
+    (72) expresion1 -> > . exp
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 176
+    parentesisIzq                  shift and go to state 91
+
+state 143
+
+    (73) expresion1 -> GE . exp
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 177
+    parentesisIzq                  shift and go to state 91
+
+state 144
+
+    (62) ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion . parentesisDerWhile bloque
+    (64) parentesisDerWhile -> . )
+
+    )               shift and go to state 179
+
+    parentesisDerWhile             shift and go to state 178
+
+state 145
+
+    (17) funcion -> FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque .
+
+    FUNCION         reduce using rule 17 (funcion -> FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque .)
+    PROGRAMA        reduce using rule 17 (funcion -> FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque .)
+    }               reduce using rule 17 (funcion -> FUNCION tipo nombreFuncion ( metodo2 agregaFirma bloque .)
+
+
+state 146
+
+    (130) metodo2 -> tipo nombreParametro metodo21 .
+
+    )               reduce using rule 130 (metodo2 -> tipo nombreParametro metodo21 .)
+
+
+state 147
+
+    (132) metodo21 -> , . tipo nombreParametro metodo21
+    (20) tipo -> . ENTERO
+    (21) tipo -> . FLOTANTE
+    (22) tipo -> . TEXTO
+    (23) tipo -> . BOLEANO
+    (24) tipo -> . checkClassExistance
+    (25) tipo -> . VACIO
+    (26) checkClassExistance -> . ID
+
+    ENTERO          shift and go to state 12
+    FLOTANTE        shift and go to state 18
+    TEXTO           shift and go to state 19
+    BOLEANO         shift and go to state 16
+    VACIO           shift and go to state 14
+    ID              shift and go to state 13
+
+    checkClassExistance            shift and go to state 15
+    tipo                           shift and go to state 180
+
+state 148
+
+    (44) parametrosLlamada -> expresion parametrosLlamada2 .
+
+    )               reduce using rule 44 (parametrosLlamada -> expresion parametrosLlamada2 .)
+
+
+state 149
+
+    (46) parametrosLlamada2 -> , . expresion parametrosLlamada2
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    expresion                      shift and go to state 181
+    exp                            shift and go to state 103
+    parentesisIzq                  shift and go to state 91
+
+state 150
+
+    (42) llamadaFuncion -> verificarProc parametrosLlamada ) . ;
+
+    ;               shift and go to state 182
+
+
+state 151
+
+    (52) vectorAsignacion -> [ exp . ]
+
+    ]               shift and go to state 183
+
+
+state 152
+
+    (48) asignacion -> revisaQueExistaID asignacion1 = . expresion ;
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    guardarVarcteId                shift and go to state 95
+    factor                         shift and go to state 87
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    exp                            shift and go to state 103
+    parentesisIzq                  shift and go to state 91
+    expresion                      shift and go to state 184
+
+state 153
+
+    (56) condicion -> SI ( superexpresion leftParentesisCondicion . bloque condicion1
+    (27) bloque -> . { bloque1 }
+
+    {               shift and go to state 45
+
+    bloque                         shift and go to state 185
+
+state 154
+
+    (57) leftParentesisCondicion -> ) .
+
+    {               reduce using rule 57 (leftParentesisCondicion -> ) .)
+
+
+state 155
+
+    (65) superexpresion -> expresion checaSuperExpresion . superexpresion1
+    (67) superexpresion1 -> . operationSuperExpresion superexpresion
+    (68) superexpresion1 -> .
+    (69) operationSuperExpresion -> . Y
+    (70) operationSuperExpresion -> . O
+
+    )               reduce using rule 68 (superexpresion1 -> .)
+    Y               shift and go to state 188
+    O               shift and go to state 187
+
+    operationSuperExpresion        shift and go to state 186
+    superexpresion1                shift and go to state 189
+
+state 156
+
+    (61) lectura -> LEER ( revisaQueExistaID ) . ;
+
+    ;               shift and go to state 190
+
+
+state 157
+
+    (53) escritura -> escrituraType ( expresion ) . ;
+
+    ;               shift and go to state 191
+
+
+state 158
+
+    (90) operationTermino -> / .
+
+    (               reduce using rule 90 (operationTermino -> / .)
+    +               reduce using rule 90 (operationTermino -> / .)
+    -               reduce using rule 90 (operationTermino -> / .)
+    NULO            reduce using rule 90 (operationTermino -> / .)
+    CTE_ENTERO      reduce using rule 90 (operationTermino -> / .)
+    CTE_FLOTANTE    reduce using rule 90 (operationTermino -> / .)
+    CTE_TEXTO       reduce using rule 90 (operationTermino -> / .)
+    VERDADERO       reduce using rule 90 (operationTermino -> / .)
+    FALSO           reduce using rule 90 (operationTermino -> / .)
+    ID              reduce using rule 90 (operationTermino -> / .)
+
+
+state 159
+
+    (86) termino1 -> operationTermino . termino
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 192
+    operationFactor                shift and go to state 98
+    parentesisIzq                  shift and go to state 91
+
+state 160
+
+    (91) operationTermino -> % .
+
+    (               reduce using rule 91 (operationTermino -> % .)
+    +               reduce using rule 91 (operationTermino -> % .)
+    -               reduce using rule 91 (operationTermino -> % .)
+    NULO            reduce using rule 91 (operationTermino -> % .)
+    CTE_ENTERO      reduce using rule 91 (operationTermino -> % .)
+    CTE_FLOTANTE    reduce using rule 91 (operationTermino -> % .)
+    CTE_TEXTO       reduce using rule 91 (operationTermino -> % .)
+    VERDADERO       reduce using rule 91 (operationTermino -> % .)
+    FALSO           reduce using rule 91 (operationTermino -> % .)
+    ID              reduce using rule 91 (operationTermino -> % .)
+
+
+state 161
+
+    (85) termino -> factor checaTermino termino1 .
+
+    +               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    -               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    >               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    GE              reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    <               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    LE              reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    NEQ             reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    EQ              reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    ;               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    ,               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    )               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    Y               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    O               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+    ]               reduce using rule 85 (termino -> factor checaTermino termino1 .)
+
+
+state 162
+
+    (89) operationTermino -> * .
+
+    (               reduce using rule 89 (operationTermino -> * .)
+    +               reduce using rule 89 (operationTermino -> * .)
+    -               reduce using rule 89 (operationTermino -> * .)
+    NULO            reduce using rule 89 (operationTermino -> * .)
+    CTE_ENTERO      reduce using rule 89 (operationTermino -> * .)
+    CTE_FLOTANTE    reduce using rule 89 (operationTermino -> * .)
+    CTE_TEXTO       reduce using rule 89 (operationTermino -> * .)
+    VERDADERO       reduce using rule 89 (operationTermino -> * .)
+    FALSO           reduce using rule 89 (operationTermino -> * .)
+    ID              reduce using rule 89 (operationTermino -> * .)
+
+
+state 163
+
+    (92) factor -> parentesisIzq superexpresion parentesisDer .
+
+    *               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    /               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    %               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    +               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    -               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    >               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    GE              reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    <               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    LE              reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    NEQ             reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    EQ              reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    Y               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    O               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    )               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    ,               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    ;               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+    ]               reduce using rule 92 (factor -> parentesisIzq superexpresion parentesisDer .)
+
+
+state 164
+
+    (96) parentesisDer -> ) .
+
+    *               reduce using rule 96 (parentesisDer -> ) .)
+    /               reduce using rule 96 (parentesisDer -> ) .)
+    %               reduce using rule 96 (parentesisDer -> ) .)
+    +               reduce using rule 96 (parentesisDer -> ) .)
+    -               reduce using rule 96 (parentesisDer -> ) .)
+    >               reduce using rule 96 (parentesisDer -> ) .)
+    GE              reduce using rule 96 (parentesisDer -> ) .)
+    <               reduce using rule 96 (parentesisDer -> ) .)
+    LE              reduce using rule 96 (parentesisDer -> ) .)
+    NEQ             reduce using rule 96 (parentesisDer -> ) .)
+    EQ              reduce using rule 96 (parentesisDer -> ) .)
+    ;               reduce using rule 96 (parentesisDer -> ) .)
+    ,               reduce using rule 96 (parentesisDer -> ) .)
+    )               reduce using rule 96 (parentesisDer -> ) .)
+    Y               reduce using rule 96 (parentesisDer -> ) .)
+    O               reduce using rule 96 (parentesisDer -> ) .)
+    ]               reduce using rule 96 (parentesisDer -> ) .)
+
+
+state 165
+
+    (114) vectorExp -> corcheteIzq saveTempNombreVector . exp corcheteDer
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    varcte                         shift and go to state 89
+    parentesisIzq                  shift and go to state 91
+    exp                            shift and go to state 193
+
+state 166
+
+    (118) varcte2 -> parentesisIzq saveTempNombreFunc . varcte3 parentesisDer
+    (120) varcte3 -> . exp varcte4
+    (121) varcte3 -> .
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    )               reduce using rule 121 (varcte3 -> .)
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    guardarVarcteId                shift and go to state 95
+    varcte3                        shift and go to state 194
+    factor                         shift and go to state 87
+    operationFactor                shift and go to state 98
+    termino                        shift and go to state 96
+    parentesisIzq                  shift and go to state 91
+    exp                            shift and go to state 195
+
+state 167
+
+    (113) varcte1 -> . ID .
+
+    *               reduce using rule 113 (varcte1 -> . ID .)
+    /               reduce using rule 113 (varcte1 -> . ID .)
+    %               reduce using rule 113 (varcte1 -> . ID .)
+    +               reduce using rule 113 (varcte1 -> . ID .)
+    -               reduce using rule 113 (varcte1 -> . ID .)
+    >               reduce using rule 113 (varcte1 -> . ID .)
+    GE              reduce using rule 113 (varcte1 -> . ID .)
+    <               reduce using rule 113 (varcte1 -> . ID .)
+    LE              reduce using rule 113 (varcte1 -> . ID .)
+    NEQ             reduce using rule 113 (varcte1 -> . ID .)
+    EQ              reduce using rule 113 (varcte1 -> . ID .)
+    ;               reduce using rule 113 (varcte1 -> . ID .)
+    ,               reduce using rule 113 (varcte1 -> . ID .)
+    )               reduce using rule 113 (varcte1 -> . ID .)
+    Y               reduce using rule 113 (varcte1 -> . ID .)
+    O               reduce using rule 113 (varcte1 -> . ID .)
+    ]               reduce using rule 113 (varcte1 -> . ID .)
+
+
+state 168
+
+    (79) exp -> termino checaExp exp1 .
+
+    >               reduce using rule 79 (exp -> termino checaExp exp1 .)
+    GE              reduce using rule 79 (exp -> termino checaExp exp1 .)
+    <               reduce using rule 79 (exp -> termino checaExp exp1 .)
+    LE              reduce using rule 79 (exp -> termino checaExp exp1 .)
+    NEQ             reduce using rule 79 (exp -> termino checaExp exp1 .)
+    EQ              reduce using rule 79 (exp -> termino checaExp exp1 .)
+    ;               reduce using rule 79 (exp -> termino checaExp exp1 .)
+    ,               reduce using rule 79 (exp -> termino checaExp exp1 .)
+    )               reduce using rule 79 (exp -> termino checaExp exp1 .)
+    Y               reduce using rule 79 (exp -> termino checaExp exp1 .)
+    O               reduce using rule 79 (exp -> termino checaExp exp1 .)
+    ]               reduce using rule 79 (exp -> termino checaExp exp1 .)
+
+
+state 169
+
+    (84) operationExp -> - .
+
+    (               reduce using rule 84 (operationExp -> - .)
+    +               reduce using rule 84 (operationExp -> - .)
+    -               reduce using rule 84 (operationExp -> - .)
+    NULO            reduce using rule 84 (operationExp -> - .)
+    CTE_ENTERO      reduce using rule 84 (operationExp -> - .)
+    CTE_FLOTANTE    reduce using rule 84 (operationExp -> - .)
+    CTE_TEXTO       reduce using rule 84 (operationExp -> - .)
+    VERDADERO       reduce using rule 84 (operationExp -> - .)
+    FALSO           reduce using rule 84 (operationExp -> - .)
+    ID              reduce using rule 84 (operationExp -> - .)
+
+
+state 170
+
+    (81) exp1 -> operationExp . exp
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    varcte                         shift and go to state 89
+    exp                            shift and go to state 196
+    parentesisIzq                  shift and go to state 91
+
+state 171
+
+    (83) operationExp -> + .
+
+    (               reduce using rule 83 (operationExp -> + .)
+    +               reduce using rule 83 (operationExp -> + .)
+    -               reduce using rule 83 (operationExp -> + .)
+    NULO            reduce using rule 83 (operationExp -> + .)
+    CTE_ENTERO      reduce using rule 83 (operationExp -> + .)
+    CTE_FLOTANTE    reduce using rule 83 (operationExp -> + .)
+    CTE_TEXTO       reduce using rule 83 (operationExp -> + .)
+    VERDADERO       reduce using rule 83 (operationExp -> + .)
+    FALSO           reduce using rule 83 (operationExp -> + .)
+    ID              reduce using rule 83 (operationExp -> + .)
+
+
+state 172
+
+    (75) expresion1 -> LE exp .
+
+    ;               reduce using rule 75 (expresion1 -> LE exp .)
+    ,               reduce using rule 75 (expresion1 -> LE exp .)
+    )               reduce using rule 75 (expresion1 -> LE exp .)
+    Y               reduce using rule 75 (expresion1 -> LE exp .)
+    O               reduce using rule 75 (expresion1 -> LE exp .)
+
+
+state 173
+
+    (76) expresion1 -> NEQ exp .
+
+    ;               reduce using rule 76 (expresion1 -> NEQ exp .)
+    ,               reduce using rule 76 (expresion1 -> NEQ exp .)
+    )               reduce using rule 76 (expresion1 -> NEQ exp .)
+    Y               reduce using rule 76 (expresion1 -> NEQ exp .)
+    O               reduce using rule 76 (expresion1 -> NEQ exp .)
+
+
+state 174
+
+    (77) expresion1 -> EQ exp .
+
+    ;               reduce using rule 77 (expresion1 -> EQ exp .)
+    ,               reduce using rule 77 (expresion1 -> EQ exp .)
+    )               reduce using rule 77 (expresion1 -> EQ exp .)
+    Y               reduce using rule 77 (expresion1 -> EQ exp .)
+    O               reduce using rule 77 (expresion1 -> EQ exp .)
+
+
+state 175
+
+    (74) expresion1 -> < exp .
+
+    ;               reduce using rule 74 (expresion1 -> < exp .)
+    ,               reduce using rule 74 (expresion1 -> < exp .)
+    )               reduce using rule 74 (expresion1 -> < exp .)
+    Y               reduce using rule 74 (expresion1 -> < exp .)
+    O               reduce using rule 74 (expresion1 -> < exp .)
+
+
+state 176
+
+    (72) expresion1 -> > exp .
+
+    ;               reduce using rule 72 (expresion1 -> > exp .)
+    ,               reduce using rule 72 (expresion1 -> > exp .)
+    )               reduce using rule 72 (expresion1 -> > exp .)
+    Y               reduce using rule 72 (expresion1 -> > exp .)
+    O               reduce using rule 72 (expresion1 -> > exp .)
+
+
+state 177
+
+    (73) expresion1 -> GE exp .
+
+    ;               reduce using rule 73 (expresion1 -> GE exp .)
+    ,               reduce using rule 73 (expresion1 -> GE exp .)
+    )               reduce using rule 73 (expresion1 -> GE exp .)
+    Y               reduce using rule 73 (expresion1 -> GE exp .)
+    O               reduce using rule 73 (expresion1 -> GE exp .)
+
+
+state 178
+
+    (62) ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile . bloque
+    (27) bloque -> . { bloque1 }
+
+    {               shift and go to state 45
+
+    bloque                         shift and go to state 197
+
+state 179
+
+    (64) parentesisDerWhile -> ) .
+
+    {               reduce using rule 64 (parentesisDerWhile -> ) .)
+
+
+state 180
+
+    (132) metodo21 -> , tipo . nombreParametro metodo21
+    (134) nombreParametro -> . ID
+
+    ID              shift and go to state 111
+
+    nombreParametro                shift and go to state 198
+
+state 181
+
+    (46) parametrosLlamada2 -> , expresion . parametrosLlamada2
+    (46) parametrosLlamada2 -> . , expresion parametrosLlamada2
+    (47) parametrosLlamada2 -> .
+
+    ,               shift and go to state 149
+    )               reduce using rule 47 (parametrosLlamada2 -> .)
+
+    parametrosLlamada2             shift and go to state 199
+
+state 182
+
+    (42) llamadaFuncion -> verificarProc parametrosLlamada ) ; .
+
+    ID              reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    SI              reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    MIENTRAS        reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    LEER            reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    REGRESA         reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    IMPRIMIR        reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    IMPRIMIRSALTO   reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    ENTERO          reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    FLOTANTE        reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    TEXTO           reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    BOLEANO         reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    VACIO           reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+    }               reduce using rule 42 (llamadaFuncion -> verificarProc parametrosLlamada ) ; .)
+
+
+state 183
+
+    (52) vectorAsignacion -> [ exp ] .
+
+    =               reduce using rule 52 (vectorAsignacion -> [ exp ] .)
+
+
+state 184
+
+    (48) asignacion -> revisaQueExistaID asignacion1 = expresion . ;
+
+    ;               shift and go to state 200
+
+
+state 185
+
+    (56) condicion -> SI ( superexpresion leftParentesisCondicion bloque . condicion1
+    (58) condicion1 -> . sinoCondicion bloque
+    (59) condicion1 -> .
+    (60) sinoCondicion -> . SINO
+
+    ID              reduce using rule 59 (condicion1 -> .)
+    SI              reduce using rule 59 (condicion1 -> .)
+    MIENTRAS        reduce using rule 59 (condicion1 -> .)
+    LEER            reduce using rule 59 (condicion1 -> .)
+    REGRESA         reduce using rule 59 (condicion1 -> .)
+    IMPRIMIR        reduce using rule 59 (condicion1 -> .)
+    IMPRIMIRSALTO   reduce using rule 59 (condicion1 -> .)
+    ENTERO          reduce using rule 59 (condicion1 -> .)
+    FLOTANTE        reduce using rule 59 (condicion1 -> .)
+    TEXTO           reduce using rule 59 (condicion1 -> .)
+    BOLEANO         reduce using rule 59 (condicion1 -> .)
+    VACIO           reduce using rule 59 (condicion1 -> .)
+    }               reduce using rule 59 (condicion1 -> .)
+    SINO            shift and go to state 203
+
+    sinoCondicion                  shift and go to state 201
+    condicion1                     shift and go to state 202
+
+state 186
+
+    (67) superexpresion1 -> operationSuperExpresion . superexpresion
+    (65) superexpresion -> . expresion checaSuperExpresion superexpresion1
+    (71) expresion -> . exp expresion1
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    parentesisIzq                  shift and go to state 91
+    varcte                         shift and go to state 89
+    factor                         shift and go to state 87
+    guardarVarcteId                shift and go to state 95
+    termino                        shift and go to state 96
+    operationFactor                shift and go to state 98
+    superexpresion                 shift and go to state 204
+    expresion                      shift and go to state 120
+    exp                            shift and go to state 103
+
+state 187
+
+    (70) operationSuperExpresion -> O .
+
+    (               reduce using rule 70 (operationSuperExpresion -> O .)
+    +               reduce using rule 70 (operationSuperExpresion -> O .)
+    -               reduce using rule 70 (operationSuperExpresion -> O .)
+    NULO            reduce using rule 70 (operationSuperExpresion -> O .)
+    CTE_ENTERO      reduce using rule 70 (operationSuperExpresion -> O .)
+    CTE_FLOTANTE    reduce using rule 70 (operationSuperExpresion -> O .)
+    CTE_TEXTO       reduce using rule 70 (operationSuperExpresion -> O .)
+    VERDADERO       reduce using rule 70 (operationSuperExpresion -> O .)
+    FALSO           reduce using rule 70 (operationSuperExpresion -> O .)
+    ID              reduce using rule 70 (operationSuperExpresion -> O .)
+
+
+state 188
+
+    (69) operationSuperExpresion -> Y .
+
+    (               reduce using rule 69 (operationSuperExpresion -> Y .)
+    +               reduce using rule 69 (operationSuperExpresion -> Y .)
+    -               reduce using rule 69 (operationSuperExpresion -> Y .)
+    NULO            reduce using rule 69 (operationSuperExpresion -> Y .)
+    CTE_ENTERO      reduce using rule 69 (operationSuperExpresion -> Y .)
+    CTE_FLOTANTE    reduce using rule 69 (operationSuperExpresion -> Y .)
+    CTE_TEXTO       reduce using rule 69 (operationSuperExpresion -> Y .)
+    VERDADERO       reduce using rule 69 (operationSuperExpresion -> Y .)
+    FALSO           reduce using rule 69 (operationSuperExpresion -> Y .)
+    ID              reduce using rule 69 (operationSuperExpresion -> Y .)
+
+
+state 189
+
+    (65) superexpresion -> expresion checaSuperExpresion superexpresion1 .
+
+    )               reduce using rule 65 (superexpresion -> expresion checaSuperExpresion superexpresion1 .)
+
+
+state 190
+
+    (61) lectura -> LEER ( revisaQueExistaID ) ; .
+
+    ID              reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    SI              reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    MIENTRAS        reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    LEER            reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    REGRESA         reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    IMPRIMIR        reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    IMPRIMIRSALTO   reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    ENTERO          reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    FLOTANTE        reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    TEXTO           reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    BOLEANO         reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    VACIO           reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+    }               reduce using rule 61 (lectura -> LEER ( revisaQueExistaID ) ; .)
+
+
+state 191
+
+    (53) escritura -> escrituraType ( expresion ) ; .
+
+    ID              reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    SI              reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    MIENTRAS        reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    LEER            reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    REGRESA         reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    IMPRIMIR        reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    IMPRIMIRSALTO   reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    ENTERO          reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    FLOTANTE        reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    TEXTO           reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    BOLEANO         reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    VACIO           reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+    }               reduce using rule 53 (escritura -> escrituraType ( expresion ) ; .)
+
+
+state 192
+
+    (86) termino1 -> operationTermino termino .
+
+    +               reduce using rule 86 (termino1 -> operationTermino termino .)
+    -               reduce using rule 86 (termino1 -> operationTermino termino .)
+    >               reduce using rule 86 (termino1 -> operationTermino termino .)
+    GE              reduce using rule 86 (termino1 -> operationTermino termino .)
+    <               reduce using rule 86 (termino1 -> operationTermino termino .)
+    LE              reduce using rule 86 (termino1 -> operationTermino termino .)
+    NEQ             reduce using rule 86 (termino1 -> operationTermino termino .)
+    EQ              reduce using rule 86 (termino1 -> operationTermino termino .)
+    ;               reduce using rule 86 (termino1 -> operationTermino termino .)
+    ,               reduce using rule 86 (termino1 -> operationTermino termino .)
+    )               reduce using rule 86 (termino1 -> operationTermino termino .)
+    Y               reduce using rule 86 (termino1 -> operationTermino termino .)
+    O               reduce using rule 86 (termino1 -> operationTermino termino .)
+    ]               reduce using rule 86 (termino1 -> operationTermino termino .)
+
+
+state 193
+
+    (114) vectorExp -> corcheteIzq saveTempNombreVector exp . corcheteDer
+    (117) corcheteDer -> . ]
+
+    ]               shift and go to state 206
+
+    corcheteDer                    shift and go to state 205
+
+state 194
+
+    (118) varcte2 -> parentesisIzq saveTempNombreFunc varcte3 . parentesisDer
+    (96) parentesisDer -> . )
+
+    )               shift and go to state 164
+
+    parentesisDer                  shift and go to state 207
+
+state 195
+
+    (120) varcte3 -> exp . varcte4
+    (122) varcte4 -> . , exp varcte4
+    (123) varcte4 -> .
+
+    ,               shift and go to state 209
+    )               reduce using rule 123 (varcte4 -> .)
+
+    varcte4                        shift and go to state 208
+
+state 196
+
+    (81) exp1 -> operationExp exp .
+
+    >               reduce using rule 81 (exp1 -> operationExp exp .)
+    GE              reduce using rule 81 (exp1 -> operationExp exp .)
+    <               reduce using rule 81 (exp1 -> operationExp exp .)
+    LE              reduce using rule 81 (exp1 -> operationExp exp .)
+    NEQ             reduce using rule 81 (exp1 -> operationExp exp .)
+    EQ              reduce using rule 81 (exp1 -> operationExp exp .)
+    ;               reduce using rule 81 (exp1 -> operationExp exp .)
+    ,               reduce using rule 81 (exp1 -> operationExp exp .)
+    )               reduce using rule 81 (exp1 -> operationExp exp .)
+    Y               reduce using rule 81 (exp1 -> operationExp exp .)
+    O               reduce using rule 81 (exp1 -> operationExp exp .)
+    ]               reduce using rule 81 (exp1 -> operationExp exp .)
+
+
+state 197
+
+    (62) ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .
+
+    ID              reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    SI              reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    MIENTRAS        reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    LEER            reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    REGRESA         reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    IMPRIMIR        reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    IMPRIMIRSALTO   reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    ENTERO          reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    FLOTANTE        reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    TEXTO           reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    BOLEANO         reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    VACIO           reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+    }               reduce using rule 62 (ciclowhile -> MIENTRAS parentesisIzqWhile superexpresion parentesisDerWhile bloque .)
+
+
+state 198
+
+    (132) metodo21 -> , tipo nombreParametro . metodo21
+    (132) metodo21 -> . , tipo nombreParametro metodo21
+    (133) metodo21 -> .
+
+    ,               shift and go to state 147
+    )               reduce using rule 133 (metodo21 -> .)
+
+    metodo21                       shift and go to state 210
+
+state 199
+
+    (46) parametrosLlamada2 -> , expresion parametrosLlamada2 .
+
+    )               reduce using rule 46 (parametrosLlamada2 -> , expresion parametrosLlamada2 .)
+
+
+state 200
+
+    (48) asignacion -> revisaQueExistaID asignacion1 = expresion ; .
+
+    ID              reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    SI              reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    MIENTRAS        reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    LEER            reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    REGRESA         reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    IMPRIMIR        reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    IMPRIMIRSALTO   reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    ENTERO          reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    FLOTANTE        reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    TEXTO           reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    BOLEANO         reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    VACIO           reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+    }               reduce using rule 48 (asignacion -> revisaQueExistaID asignacion1 = expresion ; .)
+
+
+state 201
+
+    (58) condicion1 -> sinoCondicion . bloque
+    (27) bloque -> . { bloque1 }
+
+    {               shift and go to state 45
+
+    bloque                         shift and go to state 211
+
+state 202
+
+    (56) condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .
+
+    ID              reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    SI              reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    MIENTRAS        reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    LEER            reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    REGRESA         reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    IMPRIMIR        reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    IMPRIMIRSALTO   reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    ENTERO          reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    FLOTANTE        reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    TEXTO           reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    BOLEANO         reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    VACIO           reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+    }               reduce using rule 56 (condicion -> SI ( superexpresion leftParentesisCondicion bloque condicion1 .)
+
+
+state 203
+
+    (60) sinoCondicion -> SINO .
+
+    {               reduce using rule 60 (sinoCondicion -> SINO .)
+
+
+state 204
+
+    (67) superexpresion1 -> operationSuperExpresion superexpresion .
+
+    )               reduce using rule 67 (superexpresion1 -> operationSuperExpresion superexpresion .)
+
+
+state 205
+
+    (114) vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .
+
+    *               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    /               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    %               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    +               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    -               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    >               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    GE              reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    <               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    LE              reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    NEQ             reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    EQ              reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    ;               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    ,               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    )               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    Y               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    O               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+    ]               reduce using rule 114 (vectorExp -> corcheteIzq saveTempNombreVector exp corcheteDer .)
+
+
+state 206
+
+    (117) corcheteDer -> ] .
+
+    *               reduce using rule 117 (corcheteDer -> ] .)
+    /               reduce using rule 117 (corcheteDer -> ] .)
+    %               reduce using rule 117 (corcheteDer -> ] .)
+    +               reduce using rule 117 (corcheteDer -> ] .)
+    -               reduce using rule 117 (corcheteDer -> ] .)
+    >               reduce using rule 117 (corcheteDer -> ] .)
+    GE              reduce using rule 117 (corcheteDer -> ] .)
+    <               reduce using rule 117 (corcheteDer -> ] .)
+    LE              reduce using rule 117 (corcheteDer -> ] .)
+    NEQ             reduce using rule 117 (corcheteDer -> ] .)
+    EQ              reduce using rule 117 (corcheteDer -> ] .)
+    ;               reduce using rule 117 (corcheteDer -> ] .)
+    ,               reduce using rule 117 (corcheteDer -> ] .)
+    )               reduce using rule 117 (corcheteDer -> ] .)
+    Y               reduce using rule 117 (corcheteDer -> ] .)
+    O               reduce using rule 117 (corcheteDer -> ] .)
+    ]               reduce using rule 117 (corcheteDer -> ] .)
+
+
+state 207
+
+    (118) varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .
+
+    *               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    /               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    %               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    +               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    -               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    >               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    GE              reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    <               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    LE              reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    NEQ             reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    EQ              reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    ;               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    ,               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    )               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    Y               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    O               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+    ]               reduce using rule 118 (varcte2 -> parentesisIzq saveTempNombreFunc varcte3 parentesisDer .)
+
+
+state 208
+
+    (120) varcte3 -> exp varcte4 .
+
+    )               reduce using rule 120 (varcte3 -> exp varcte4 .)
+
+
+state 209
+
+    (122) varcte4 -> , . exp varcte4
+    (79) exp -> . termino checaExp exp1
+    (85) termino -> . factor checaTermino termino1
+    (92) factor -> . parentesisIzq superexpresion parentesisDer
+    (93) factor -> . operationFactor varcte
+    (94) factor -> . varcte
+    (95) parentesisIzq -> . (
+    (97) operationFactor -> . +
+    (98) operationFactor -> . -
+    (99) varcte -> . varcteID
+    (100) varcte -> . constantes
+    (101) varcte -> . NULO
+    (107) varcteID -> . guardarVarcteId varct
+    (102) constantes -> . CTE_ENTERO
+    (103) constantes -> . CTE_FLOTANTE
+    (104) constantes -> . CTE_TEXTO
+    (105) constantes -> . VERDADERO
+    (106) constantes -> . FALSO
+    (108) guardarVarcteId -> . ID
+
+    (               shift and go to state 86
+    +               shift and go to state 88
+    -               shift and go to state 105
+    NULO            shift and go to state 99
+    CTE_ENTERO      shift and go to state 100
+    CTE_FLOTANTE    shift and go to state 90
+    CTE_TEXTO       shift and go to state 93
+    VERDADERO       shift and go to state 101
+    FALSO           shift and go to state 104
+    ID              shift and go to state 92
+
+    varcteID                       shift and go to state 94
+    constantes                     shift and go to state 97
+    varcte                         shift and go to state 89
+    guardarVarcteId                shift and go to state 95
+    factor                         shift and go to state 87
+    operationFactor                shift and go to state 98
+    termino                        shift and go to state 96
+    exp                            shift and go to state 212
+    parentesisIzq                  shift and go to state 91
+
+state 210
+
+    (132) metodo21 -> , tipo nombreParametro metodo21 .
+
+    )               reduce using rule 132 (metodo21 -> , tipo nombreParametro metodo21 .)
+
+
+state 211
+
+    (58) condicion1 -> sinoCondicion bloque .
+
+    ID              reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    SI              reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    MIENTRAS        reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    LEER            reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    REGRESA         reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    IMPRIMIR        reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    IMPRIMIRSALTO   reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    ENTERO          reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    FLOTANTE        reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    TEXTO           reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    BOLEANO         reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    VACIO           reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+    }               reduce using rule 58 (condicion1 -> sinoCondicion bloque .)
+
+
+state 212
+
+    (122) varcte4 -> , exp . varcte4
+    (122) varcte4 -> . , exp varcte4
+    (123) varcte4 -> .
+
+    ,               shift and go to state 209
+    )               reduce using rule 123 (varcte4 -> .)
+
+    varcte4                        shift and go to state 213
+
+state 213
+
+    (122) varcte4 -> , exp varcte4 .
+
+    )               reduce using rule 122 (varcte4 -> , exp varcte4 .)
+

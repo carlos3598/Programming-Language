@@ -1,0 +1,29 @@
+clase Persona
+{
+	publico:
+		texto nombre;
+		entero edad;
+
+		funcion vacio printData() {
+
+			imprimir("Nombre: ");
+			imprimirSalto(nombre);
+			imprimir("Edad: ");
+			imprimirSalto(edad);
+		}	
+};
+
+programa 
+{
+	Persona p1, p2;
+
+	p1.nombre = "Alberto";
+	p1.edad = 23;
+
+	p2.nombre = "Diana";
+	p2.edad = 22;
+
+	p1.printData();
+	p2.printData();
+}
+

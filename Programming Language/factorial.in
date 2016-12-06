@@ -1,0 +1,13 @@
+funcion entero factorial(entero n) {
+		
+	si(n == 1) {
+		regresa 1;
+	}
+
+	regresa n * factorial(n-1);
+}
+
+programa {
+	
+	imprimirSalto(factorial(10));
+}
